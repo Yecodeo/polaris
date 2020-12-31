@@ -1,0 +1,56 @@
+version: "3.8"
+services:
+  # front end
+  frontapp:
+    container_name: frontApp
+    build: 
+      context: ./frontApp
+      dockerfile: ./Dockerfile
+      args:
+        DB_PORT: 5432
+    restart: on-failure
+    ports:
+      - "3000:3000"
+    networks:
+      - api
+    depends_on:
+      - server
+    links:
+      - server
+    volumes:
+      - ./users:/home/www/webapp
+      - /home/www/webapp/node_modules
+  # node server 
+  server:
+    build: 
+      context: ./server
+      dockerfile: ./Dockerfile
+      args:
+        DB_PORT: 27017
+    restart: on-failure
+    ports:
+      - "3000:3000"
+    networks:
+      - api
+    depends_on:
+      - publicationdb
+    links:
+      - publicationdb
+    volumes:
+      - ./publication:/home/www/webapp
+      - /home/www/webapp/node_modules
+  # elasticsearch
+  elasticsearch:
+    image:  elasticsearch:latest
+    volumes:
+      - dbdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    restart: on-failure
+    networks:
+      - api
+volumes:
+  dbdata: {}
+networks:
+  api:
+    driver: bridge
