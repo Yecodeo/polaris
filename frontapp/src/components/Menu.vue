@@ -17,30 +17,57 @@
       <li>
         <div class="aboutme mt-3">
           <h6 class="title is-6">About me</h6>
-          <p class="subtitle is-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+          <p class="subtitle is-6 has-text-justified">Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
             Nam consequuntur qui eligendi aspernatur ullam doloremque non minima, quae ex voluptas ?</p>
         </div>
 
       </li>
       <li>
-        <h6 class="title is-6">
+        <h6 class="title is-6 mt-3">
           My social life
         </h6>
-        <a href="#" class="">
-          <MenuIcon />
-        </a>
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item m-0">
+              <a href="#" class="p-1">
+                <Facebook />
+              </a>
+            </div>
+            <div class="level-item m-0">
+              <a href="#" class="p-1">
+                <Linkedin />
+              </a>
+            </div>
+            <div class="level-item m-0">
+              <a href="#" class="p-1">
+                <Twitter />
+              </a>
+            </div>
+            <div class="level-item m-0">
+              <a href="#" class="p-1">
+                <Orcid />
+              </a>
+            </div>
+          </div>
+        </div>
       </li>
     </ul>
   </aside>  
 </template>
 
 <script>
-import MenuIcon from 'vue-material-design-icons/Menu.vue';
+import Facebook from 'vue-material-design-icons/Facebook';
+import Linkedin from 'vue-material-design-icons/Linkedin';
+import Twitter from 'vue-material-design-icons/Twitter';
+import Orcid from './icons/Orcid';
 
 export default {
   name: 'aside-app',
   components: {
-    MenuIcon
+    Facebook,
+    Linkedin,
+    Twitter,
+    Orcid
   }
 }
 </script>
