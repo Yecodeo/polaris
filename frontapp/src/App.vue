@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import Header from './components/Header';
-import Menu from './components/Menu';
-import CoreUi from './components/coreUi';
+import Header from './components/layout/Header';
+import Menu from './components/layout/Menu';
+import CoreUi from './components/layout/coreUi';
 
 
 export default {
