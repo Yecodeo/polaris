@@ -1,29 +1,12 @@
 FROM node:latest
 
-ENV USER=www
-ENV DIRAPP=webapp
+WORKDIR /app
 
 ENV NODE_ENV=development
-ENV DB_NAME=users
-ENV DB_USER=root
-ENV DB_PASS=root
-ENV APP_PORT=8080
-ENV DB_HOST=user-db
-# importing port argument
-ARG DB_PORT
-ENV DB_PORT=$DB_PORT
-# ENV DEBUG=express:* 
-RUN useradd --user-group --create-home --shell /bin/false $USER
-ENV HOME=/home/$USER
-COPY package.json yarn.lock $HOME/$DIRAPP/
-RUN chown -R $USER:$USER $HOME/*
-USER $USER
-WORKDIR $HOME/$DIRAPP
-
-EXPOSE 8080
-# RUN npm install node-gyp
-
+RUN npm install -g vue-cli
+COPY package.json ./
 RUN npm install
-COPY . .
+EXPOSE 8080
 
-CMD [ "npm", "serve" ]
+COPY . .
+CMD ["npm", "run", "serve"]
