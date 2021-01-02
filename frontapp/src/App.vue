@@ -12,7 +12,7 @@
 <script>
 import Header from './components/layout/Header';
 import Menu from './components/layout/Menu';
-import CoreUi from './components/layout/coreUi';
+import CoreUi from './components/layout/CoreUi';
 
 
 export default {
