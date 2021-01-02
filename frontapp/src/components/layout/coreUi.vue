@@ -5,6 +5,7 @@
         <div class="header-content">
           <b-tabs position="is-centered is-boxed" class="block mt-5">
             <b-tab-item headerClass="b-rounded has-background-light" label="Vue générale">
+              <General />
             </b-tab-item>
             <b-tab-item headerClass="b-rounded has-background-light" label="My profil">
                 <Profile />
@@ -22,13 +23,15 @@
 </template>
 
 <script>
-  import Profile from '../user/profile';
-  import Publication from '../user/publications';
+  import Profile from '../user/Profile';
+  import Publication from '../user/Publications';
+  import General from '../user/General';
   export default {
-    name: 'core-ui',
+    name: 'Core-ui',
     components: {
       Profile,
-      Publication
+      Publication,
+      General
     }
   }
 </script>
