@@ -8,13 +8,13 @@ services:
       dockerfile: ./Dockerfile
     restart: on-failure
     ports:
-      - "3000:3000"
+      - "8080:8080"
     networks:
       - api
-    depends_on:
-      - serverapp
-    links:
-      - serverapp
+    # depends_on:
+    #   - serverapp
+    # links:
+    #   - serverapp
     volumes:
       - ./users:/home/www/webapp
       - /home/www/webapp/node_modules
@@ -30,23 +30,23 @@ services:
       - "3001:3001"
     networks:
       - api
-    depends_on:
-      - elasticsearch
-    links:
-      - elasticsearch
+    # depends_on:
+    #   - elasticsearch
+    # links:
+    #   - elasticsearch
     volumes:
       - ./publication:/home/www/webapp
       - /home/www/webapp/node_modules
-  # elasticsearch
-  elasticsearch:
-    image:  elasticsearch:latest
-    volumes:
-      - dbdata:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-    restart: on-failure
-    networks:
-      - api
+  # # elasticsearch
+  # elasticsearch:
+  #   image:  elasticsearch:7.9.3
+  #   volumes:
+  #     - dbdata:/usr/share/elasticsearch/data
+  #   ports:
+  #     - 9200:9200
+  #   restart: on-failure
+  #   networks:
+  #     - api
 volumes:
   dbdata: {}
 networks:
