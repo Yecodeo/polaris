@@ -6,36 +6,34 @@ services:
     build: 
       context: ./frontApp
       dockerfile: ./Dockerfile
-      args:
-        DB_PORT: 5432
     restart: on-failure
     ports:
       - "3000:3000"
     networks:
       - api
     depends_on:
-      - server
+      - serverapp
     links:
-      - server
+      - serverapp
     volumes:
       - ./users:/home/www/webapp
       - /home/www/webapp/node_modules
   # node server 
-  server:
+  serverapp:
     build: 
-      context: ./server
+      context: ./serverApp
       dockerfile: ./Dockerfile
       args:
         DB_PORT: 27017
     restart: on-failure
     ports:
-      - "3000:3000"
+      - "3001:3001"
     networks:
       - api
     depends_on:
-      - publicationdb
+      - elasticsearch
     links:
-      - publicationdb
+      - elasticsearch
     volumes:
       - ./publication:/home/www/webapp
       - /home/www/webapp/node_modules
