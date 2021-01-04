@@ -1,14 +1,11 @@
 import express from 'express';
-import elasticsearch from 'elasticsearch';
+import esClient from '../db/esClient';
 
-const client = elasticsearch.Client({
-  host: `http://${process.env.DB}:9200`
-});
+const client = esClient.getInstance();
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.json({ name: 'ok'})
-})
+
+
 router.use((req, res, next) => {
   client.index({
     index: 'logs',
@@ -25,27 +22,55 @@ router.use((req, res, next) => {
 })
 
 
-/* GET home page. */
+/**
+ * get All publication by user id
+ */
+router.get('/publication/search', function (req, res, next) {
+  client.search({
+    index: 'publication',
+    body: {
+        query: {
+            query_string: {
+                query: req.query.q
+            }
+        }
+    }
+  }).then( response => {
+    res.status(200).json({
+      state: 'ok', 
+      count: response.hits.total,
+      data: response.hits.hits,
+    });
+  }).catch( error => {
+    return res.statusCode(500).json({
+      state: 'ok', 
+      error
+    })
+  });
+});
+
+/**
+ * get All publication by user id
+ */
 router.get('/publication/user/:id', function (req, res, next) {
   client.search({
     index: 'publication',
     body: {
       query: {
-        match_all: {}
+          match: {
+              owner: req.params.id
+          }
       }
     }
   }).then( response => {
     res.status(200).json({
-      state: {
-        data: response,
-        message: 'indexeds'
-      }
+      state: 'ok', 
+      data: response,
     });
   }).catch( error => {
     return res.statusCode(500).json({
-      state: {
-        error,
-      }
+      state: 'ok', 
+      error
     })
   });
 });
@@ -59,16 +84,13 @@ router.post('/publication', function (req, res) {
     body: req.body
   }).then( response => {
     return res.status(200).json({
-      state: {
-        data: response,
-        message: 'indexeds'
-      }
+      state: 'ok', 
+      data: response,
     });
   }).catch( error => {
     return res.statusCode(500).json({
-      state: {
-        error,
-      }
+      state: 'ok', 
+      error
     })
   });
 });
@@ -82,9 +104,8 @@ router.put('/publication/:id', function (req, res) {
     id: req.params.id
   }).then( response => {
     res.status(200).json({
-      state: {
-        message: 'updated'
-      }
+      state: 'ok', 
+      data: response,
     });
   }).catch( error => {
     return res.statusCode(500).json({
@@ -103,10 +124,8 @@ router.delete('/publication/:id', function (req, res) {
     id: req.params.id
   }).then( response => {
     res.status(200).json({
-      state: {
-        state: 'ok',
-        message: 'deleted'
-      }
+      state: 'ok', 
+      data: response,
     });
   }).catch( error => {
     return res.statusCode(500).json({
