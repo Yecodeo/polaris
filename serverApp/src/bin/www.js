@@ -13,7 +13,7 @@ import http from 'http';
  */
 
 debug('serverapp:server');
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.APP_PORT || '3001');
 app.set('port', port);
 
 /**

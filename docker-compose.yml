@@ -11,13 +11,13 @@ services:
       - "8080:8080"
     networks:
       - api
-    # depends_on:
-    #   - serverapp
-    # links:
-    #   - serverapp
+    depends_on:
+      - serverapp
+    links:
+      - serverapp
     volumes:
-      - ./users:/home/www/webapp
-      - /home/www/webapp/node_modules
+      - ./frontapp:/app
+      - /app/node_modules
   # node server 
   serverapp:
     build: 
@@ -30,13 +30,13 @@ services:
       - "3001:3001"
     networks:
       - api
-    # depends_on:
-    #   - elasticsearch
-    # links:
-    #   - elasticsearch
+    depends_on:
+      - elasticsearch
+    links:
+      - elasticsearch
     volumes:
-      - ./publication:/home/www/webapp
-      - /home/www/webapp/node_modules
+      - ./serverApp:/app
+      - /app/node_modules
   # elasticsearch
   elasticsearch:
     image:  elasticsearch:6.8.9

@@ -5,9 +5,11 @@ WORKDIR /app
 
 # set envirement variable to developpement
 ENV NODE_ENV=development
-
+ENV APP_PORT=3001
+ARG APP_PORT
+ENV APP_PORT=$DB_PORT
 # copy npm package
-COPY package.json ./
+COPY package*.json ./
 
 # install whole requirements
 RUN npm install
@@ -19,4 +21,4 @@ EXPOSE 3001
 COPY . .
 
 # run server
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
