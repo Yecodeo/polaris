@@ -24,7 +24,7 @@ services:
       context: ./serverApp
       dockerfile: ./Dockerfile
       args:
-        DB_PORT: 27017
+        DB: elasticsearch
     restart: on-failure
     ports:
       - "3001:3001"
@@ -39,6 +39,7 @@ services:
       - /app/node_modules
   # elasticsearch
   elasticsearch:
+    container_name: elasticsearch
     image:  elasticsearch:6.8.9
     volumes:
       - dbdata:/usr/share/elasticsearch/data

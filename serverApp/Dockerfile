@@ -6,8 +6,13 @@ WORKDIR /app
 # set envirement variable to developpement
 ENV NODE_ENV=development
 ENV APP_PORT=3001
+
+ARG DB
+ENV DB=$DB
+
 ARG APP_PORT
 ENV APP_PORT=$DB_PORT
+
 # copy npm package
 COPY package*.json ./
 

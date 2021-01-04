@@ -2,7 +2,7 @@ import express from 'express';
 import elasticsearch from 'elasticsearch';
 
 const client = elasticsearch.Client({
-  host: 'http://localhost:9200'
+  host: `http://${process.env.DB}:9200`
 });
 const router = express.Router();
 
