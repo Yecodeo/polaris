@@ -75,7 +75,7 @@ function deletePublication(id) {
 
 function hitsToResponse(hits) {
 	return hits.map((hit) => ({
-		id: hit._source.id,
+		id: hit._id,
 		title: hit._source.title,
 		owner: hit._source.owner,
 		auteurs: hit._source.auteurs,
