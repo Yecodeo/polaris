@@ -1,5 +1,6 @@
-import elasticsearch from 'elasticsearch';
-import {checkIndices} from './indicies.init';
+const { Client } = require('@elastic/elasticsearch')
+
+import { checkIndices } from './indicies.init';
 
 
 /**
@@ -11,8 +12,8 @@ export default (function() {
 	return {
 		getInstance: function() {
 			if (!instance) {
-				instance = new elasticsearch.Client({
-					host: `http://${process.env.DB || 'localhost' }:9200`
+				instance = new Client({
+					node: `http://${process.env.DB || 'localhost' }:9200`
 				});
 				delete instance.constructor;
 				// create indicies if not created
