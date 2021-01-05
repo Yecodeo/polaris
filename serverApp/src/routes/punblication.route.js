@@ -1,28 +1,24 @@
 import express from 'express';
-import esClient from '../db/esClient';
+import elastic from '../db/elastic';
+
 import {
   findByUser,
   findByPublication,
   addPublication,
   updatePublication,
-  deletePublication
-} from '../db/publication.manager';
+  deletePublication,
+  hitsToResponse
+} from '../db/publication.repository';
+import {esLog} from '../middleware/elasticsearch.log';
 
-const client = esClient.getInstance();
+const client = elastic.getInstance();
 const router = express.Router();
 
+/**
+ * Log every request 
+ */
 router.use((req, res, next) => {
-  client.index({
-    index: 'logs',
-    body: {
-      url: req.url,
-      method: req.method
-    }
-  }).then(res => {
-    console.log('Logs indexed')
-  }).catch(err => {
-    console.error(err);
-  })
+  esLog(client, req);
   next();
 })
 
@@ -34,12 +30,11 @@ router.get('/publication/search', function (req, res, next) {
   findByPublication(req.query.q).then(response => {
     res.status(200).json({
       state: 'ok',
-      count: response.hits.total,
-      data: response.hits.hits,
+      data: hitsToResponse(response.hits.hits),
     });
   }).catch(error => {
-    return res.statusCode(500).json({
-      state: 'ok',
+    return res.status(500).json({
+      state: 'error',
       error
     })
   });
@@ -48,15 +43,15 @@ router.get('/publication/search', function (req, res, next) {
 /**
  * get All publication by user id
  */
-router.get('/publication/user/:id', function (req, res, next) {
+router.get('/publication/:id', function (req, res, next) {
   findByUser(req.params.id).then(response => {
     res.status(200).json({
       state: 'ok',
-      data: response,
+      data: hitsToResponse(response.body.hits.hits),
     });
   }).catch(error => {
-    return res.statusCode(500).json({
-      state: 'ok',
+    return res.status(500).json({
+      state: 'error',
       error
     })
   });
@@ -67,13 +62,17 @@ router.get('/publication/user/:id', function (req, res, next) {
  */
 router.post('/publication', function (req, res) {
   addPublication(req.body).then(response => {
+    console.log(response)
     return res.status(200).json({
       state: 'ok',
-      data: response,
+      data: {
+        id: response.body._id,
+        result: response.body.result
+      }
     });
   }).catch(error => {
-    return res.statusCode(500).json({
-      state: 'ok',
+    return res.status(500).json({
+      state: 'error',
       error
     })
   });
@@ -86,7 +85,10 @@ router.put('/publication/:id', function (req, res) {
   updatePublication(req.params.id, req.body).then(response => {
     res.status(200).json({
       state: 'ok',
-      data: response,
+      data: {
+        id: response.body._id,
+        result: response.body.result
+      }
     });
   }).catch(error => {
     return res.status(500).json({
@@ -100,14 +102,17 @@ router.put('/publication/:id', function (req, res) {
  * delete a publication
  */
 router.delete('/publication/:id', function (req, res) {
-  deletePublication.then(response => {
+  deletePublication(req.params.id).then(response => {
     res.status(200).json({
       state: 'ok',
-      data: response,
+      data: {
+        id: response.body._id,
+        result: response.body.result
+      }
     });
   }).catch(error => {
-    return res.statusCode(500).json({
-      state: 'ok',
+    return res.status(500).json({
+      state: 'error',
       error
     })
   });
