@@ -1,10 +1,15 @@
 import express from 'express';
 import esClient from '../db/esClient';
+import {
+  findByUser,
+  findByPublication,
+  addPublication,
+  updatePublication,
+  deletePublication
+} from '../db/publication.manager';
 
 const client = esClient.getInstance();
 const router = express.Router();
-
-
 
 router.use((req, res, next) => {
   client.index({
@@ -26,24 +31,15 @@ router.use((req, res, next) => {
  * get All publication by user id
  */
 router.get('/publication/search', function (req, res, next) {
-  client.search({
-    index: 'publication',
-    body: {
-        query: {
-            query_string: {
-                query: req.query.q
-            }
-        }
-    }
-  }).then( response => {
+  findByPublication(req.query.q).then(response => {
     res.status(200).json({
-      state: 'ok', 
+      state: 'ok',
       count: response.hits.total,
       data: response.hits.hits,
     });
-  }).catch( error => {
+  }).catch(error => {
     return res.statusCode(500).json({
-      state: 'ok', 
+      state: 'ok',
       error
     })
   });
@@ -53,23 +49,14 @@ router.get('/publication/search', function (req, res, next) {
  * get All publication by user id
  */
 router.get('/publication/user/:id', function (req, res, next) {
-  client.search({
-    index: 'publication',
-    body: {
-      query: {
-          match: {
-              owner: req.params.id
-          }
-      }
-    }
-  }).then( response => {
+  findByUser(req.params.id).then(response => {
     res.status(200).json({
-      state: 'ok', 
+      state: 'ok',
       data: response,
     });
-  }).catch( error => {
+  }).catch(error => {
     return res.statusCode(500).json({
-      state: 'ok', 
+      state: 'ok',
       error
     })
   });
@@ -79,17 +66,14 @@ router.get('/publication/user/:id', function (req, res, next) {
  * Add new publication
  */
 router.post('/publication', function (req, res) {
-  client.index({
-    index: 'publication',
-    body: req.body
-  }).then( response => {
+  addPublication(req.body).then(response => {
     return res.status(200).json({
-      state: 'ok', 
+      state: 'ok',
       data: response,
     });
-  }).catch( error => {
+  }).catch(error => {
     return res.statusCode(500).json({
-      state: 'ok', 
+      state: 'ok',
       error
     })
   });
@@ -99,18 +83,15 @@ router.post('/publication', function (req, res) {
  * update a publication
  */
 router.put('/publication/:id', function (req, res) {
-  client.update({
-    index: 'publication',
-    id: req.params.id
-  }).then( response => {
+  updatePublication(req.params.id, req.body).then(response => {
     res.status(200).json({
-      state: 'ok', 
+      state: 'ok',
       data: response,
     });
-  }).catch( error => {
-    return res.statusCode(500).json({
-      state: 'ok', 
-      error
+  }).catch(error => {
+    return res.status(500).json({
+      state: 'error',
+      error: error
     })
   });
 });
@@ -119,17 +100,14 @@ router.put('/publication/:id', function (req, res) {
  * delete a publication
  */
 router.delete('/publication/:id', function (req, res) {
-  client.delete({
-    index: 'publication',
-    id: req.params.id
-  }).then( response => {
+  deletePublication.then(response => {
     res.status(200).json({
-      state: 'ok', 
+      state: 'ok',
       data: response,
     });
-  }).catch( error => {
+  }).catch(error => {
     return res.statusCode(500).json({
-      state: 'ok', 
+      state: 'ok',
       error
     })
   });
