@@ -10,7 +10,7 @@ export default (function() {
 		getInstance: function() {
 			if (!instance) {
 				instance = new elasticsearch.Client({
-					host: `http://${process.env.DB}:9200`
+					host: `http://${process.env.DB || 'localhost' }:9200`
 				});
 				delete instance.constructor;
 			}
