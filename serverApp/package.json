@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "babel-watch --watchAll -L ./src/bin/www.js"
+    "start": "babel-watch -L ./src/bin/www.js"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.10.0",
@@ -19,6 +19,6 @@
     "@babel/node": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "babel-node": "0.0.1-security",
-    "babel-watch": "^7.0.0"
+    "babel-watch": "^7.1.0"
   }
 }
