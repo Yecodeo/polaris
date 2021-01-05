@@ -8,7 +8,7 @@
  */
 export function checkIndices(client) {
     const indicies = [
-        require('./indicies/profil'),
+        require('./indicies/user'),
         require('./indicies/publication')
     ]
     indicies.forEach(function (module)  {
