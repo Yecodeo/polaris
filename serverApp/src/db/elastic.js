@@ -1,4 +1,6 @@
 import elasticsearch from 'elasticsearch';
+import {checkIndices} from './indicies.init';
+
 
 /**
  * Connexion manager singleton pattern
@@ -13,6 +15,8 @@ export default (function() {
 					host: `http://${process.env.DB || 'localhost' }:9200`
 				});
 				delete instance.constructor;
+				// create indicies if not created
+				checkIndices(instance);
 			}
 			return instance;
 		}

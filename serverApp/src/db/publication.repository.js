@@ -1,6 +1,6 @@
-import esClient from '../db/esClient';
+import elastic from './elastic';
 
-const client = esClient.getInstance();
+const client = elastic.getInstance();
 
 /**
  * find a user by name
@@ -72,6 +72,19 @@ function deletePublication(id) {
 		id: id
 	})
 }
+
+function hitsToResponse(hits) {
+	return hits.map((hit) => ({
+		id: hit._source.id,
+		title: hit._source.title,
+		owner: hit._source.owner,
+		auteurs: hit._source.auteurs,
+		annee: hit._source.annee,
+		lang: hit._source.lang
+	}));
+}
+
+exports.hitsToResponse = hitsToResponse;
 exports.deletePublication = deletePublication;
 exports.updatePublication = updatePublication;
 exports.addPublication = addPublication;
