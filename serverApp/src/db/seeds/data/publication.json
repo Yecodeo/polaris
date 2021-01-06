@@ -1,0 +1,72 @@
+[
+	{
+		"title": "Programmer I",
+		"owner": "92-966-4685",
+		"auteurs": ["Wilfrid", "Grealy", "Dulcea" ],
+		"annee": "2020",
+		"lang": "Zulu"
+	},
+	{
+		"title": "Senior Sales Associate",
+		"owner": "14-457-4140",
+		"auteurs": ["Ralph", "Sabine"],
+		"annee": "2020",
+		"lang": "Tamil"
+	},
+	{
+		"title": "Chemical Engineer",
+		"owner": "00-518-4640",
+		"auteurs": ["Bertie"],
+		"annee": "2020",
+		"lang": "Arabic"
+	},
+	{
+		"title": "Executive Secretary",
+		"owner": "74-440-1493",
+		"auteurs": ["Bertie", "Sabine"],
+		"annee": "2020",
+		"lang": "Croatian"
+	},
+	{
+		"title": "Statistician I",
+		"owner": "30-490-5756",
+		"auteurs":  ["Sabine"],
+		"annee": "2020",
+		"lang": "Moldovan"
+	},
+	{
+		"title": "Accounting Assistant III",
+		"owner": "01-759-3268",
+		"auteurs":  ["Ralph", "Sabine"],
+		"annee": "2020",
+		"lang": "Gagauz"
+	},
+	{
+		"title": "Marketing Assistant",
+		"owner": "47-333-0643",
+		"auteurs": ["Wilfrid", "Grealy"],
+		"annee": "2020",
+		"lang": "Zulu"
+	},
+	{
+		"title": "Occupational Therapist",
+		"owner": "14-071-8682",
+		"auteurs": [ "Grealy"],
+		"annee": "2020",
+		"lang": "Persian"
+	},
+	{
+		"title": "Budget/Accounting Analyst III",
+		"owner": "06-600-4012",
+		"auteurs": [ "Grealy", "Dulcea"],
+		"annee": "2020",
+		"lang": "Italian"
+	},
+	{
+		"title": "VP Product Management",
+		"owner": "54-411-2248",
+		"auteurs": ["Dulcea"],
+		"annee": "2020",
+		"lang": "Fijian"
+	}
+]
