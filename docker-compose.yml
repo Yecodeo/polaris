@@ -1,5 +1,18 @@
 version: "3.8"
 services:
+    # elasticsearch
+  elasticsearch:
+    container_name: elasticsearch
+    image:  elasticsearch:7.9.3
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - dbdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    restart: on-failure
+    networks:
+      - api
   # front end
   # frontapp:
   #   container_name: frontApp
@@ -26,6 +39,13 @@ services:
       args:
         DB: elasticsearch
     restart: on-failure
+    # healthcheck:
+    #     test: ["CMD", "curl", "-f", "http://elasticsearch:9200/_cluster/health"]
+    #     interval: 10s
+    #     timeout: 30s
+    #     retries: 10
+    environment: 
+      WAIT_HOSTS: elasticsearch:9200
     ports:
       - "3001:3001"
     networks:
@@ -37,19 +57,6 @@ services:
     volumes:
       - ./serverApp:/app
       - /app/node_modules
-  # elasticsearch
-  elasticsearch:
-    container_name: elasticsearch
-    image:  elasticsearch:7.9.3
-    environment:
-      - discovery.type=single-node
-    volumes:
-      - dbdata:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-    restart: on-failure
-    networks:
-      - api
 volumes:
   dbdata: {}
 networks:

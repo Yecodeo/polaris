@@ -23,6 +23,11 @@ EXPOSE 3001
 
 # copy all files to current directory
 COPY . .
+# COPY waitme.sh ./
+# RUN chmod +x waitme.sh 
+## THE LIFE SAVER
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
+RUN chmod +x /wait
 
 # run server
-CMD ["npm", "start"]
+CMD /wait && npm run start
