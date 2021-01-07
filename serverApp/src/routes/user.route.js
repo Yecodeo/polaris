@@ -8,7 +8,7 @@ import {
   updateUser,
   deleteUser,
   hitsToResponse
-} from '../db/user.repository';
+} from '../db/repository/user.repository';
 import { esLog } from '../middleware/elasticsearch.log';
 
 const client = elastic.getInstance();
