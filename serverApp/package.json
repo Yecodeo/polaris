@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "babel-watch -L ./src/bin/www.js"
+    "seed:db": "npx babel-node ./src/db/seeds/seed.eleasticsearch.js",
+    "start": "npm run seed:db && babel-watch -L ./src/bin/www.js "
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.10.0",
