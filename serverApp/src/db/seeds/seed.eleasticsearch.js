@@ -11,6 +11,10 @@ const seeds = [
 	{
 		name: 'publication',
 		json: require('./data/publication.json')
+	},
+	{
+		name: 'user',
+		json: require('./data/users.json')
 	},	
 ]
 seeds.map((seed) => {
@@ -26,7 +30,7 @@ async function pushBulk(data, index) {
 	const body = data.flatMap(doc => [{ index: { _index: index } }, doc])
 
 	const { body: bulkResponse } = await client.bulk({ refresh: true, body })
-
+	console.log(bulkResponse.items)
 	if (bulkResponse.errors) {
 		const erroredDocuments = []
 		bulkResponse.items.forEach((action, i) => {
