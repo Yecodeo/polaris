@@ -11,6 +11,7 @@ export default function (client) {
 		index: indexName,
 		body: {
 		properties: { 
+			prefix: { type: 'text'},
 			firstname: { type: 'text' },
 			lastname: { type: 'text' },
 			profil: {
