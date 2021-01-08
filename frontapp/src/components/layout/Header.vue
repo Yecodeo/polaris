@@ -16,7 +16,7 @@
     </div>
     <div class="columns is-mobile is-centered mt-1">
       <div class="column is-half has-text-centered pt-0">
-          <b-button type="is-primary">recherche</b-button>
+          <b-button type="is-primary">Recherche</b-button>
       </div>
     </div>
   </div>

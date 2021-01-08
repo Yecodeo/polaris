@@ -2,7 +2,7 @@
 	<section>
 		<div class="form">
 			<div class="columns">
-				<div class="column is-two-fifths">
+				<div class="column is-two-fifths mt-4">
 					<b-field label="Prénom">
 						<b-input></b-input>
 					</b-field>
@@ -84,7 +84,7 @@
 	import Upload from '../misc/Upload';
 
 	export default {
-		name: 'Publication',
+		name: 'Profil',
 		components: {
 			Upload
 		},

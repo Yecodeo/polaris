@@ -10,10 +10,10 @@
 </template>
 
 <script>
+
 import Header from './components/layout/Header';
 import Menu from './components/layout/Menu';
 import CoreUi from './components/layout/CoreUi';
-
 
 export default {
   name: 'App',
@@ -26,5 +26,10 @@ export default {
 </script>
 
 <style>
-
+.is-fullheight {
+    height: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 </style>

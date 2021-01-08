@@ -1,21 +1,24 @@
 <template>
   <div class="container column is-10">
-    <div class="section pt-6">
-      <section class="boxed px-2">
+    <div class="section is-fullheight pt-6">
+      <section class="boxed is-fullheight px-2">
         <div class="header-content">
-          <b-tabs position="is-centered is-boxed" class="block mt-5">
-            <b-tab-item headerClass="b-rounded has-background-light" label="Vue générale">
-              <General />
-            </b-tab-item>
-            <b-tab-item headerClass="b-rounded has-background-light" label="My profil">
-                <Profile />
-            </b-tab-item>
-            <b-tab-item headerClass="b-rounded has-background-light" label="Mes publications">
-              <Publication />
-            </b-tab-item>
-          </b-tabs>
+          <nav class="tabs is-centered is-boxed">
+            <ul>
+              <li class="b-rounded has-background-light is-active">
+                <router-link to="/" exact>Vue général</router-link>
+              </li>
+              <li class="b-rounded has-background-light is-active">
+                <router-link to="/profil" exact>My profil</router-link>
+              </li>
+              <li class="b-rounded has-background-light is-active">
+                <router-link to="/publication" exact>Mes publication</router-link>
+              </li>
+            </ul>
+          </nav>
         </div>
         <div class="content">
+            <router-view></router-view>
         </div>
       </section>
     </div>
@@ -23,16 +26,14 @@
 </template>
 
 <script>
-  import Profile from '../user/Profile';
-  import Publication from '../user/Publications';
-  import General from '../user/General';
   export default {
     name: 'Core-ui',
-    components: {
-      Profile,
-      Publication,
-      General
-    }
+
   }
 </script>
-<style></style>
+<style>
+li .is-active {
+    background-color: #7957d5!important;
+    color: white!important;
+}
+</style>
