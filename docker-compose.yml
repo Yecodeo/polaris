@@ -39,11 +39,6 @@ services:
       args:
         DB: elasticsearch
     restart: on-failure
-    # healthcheck:
-    #     test: ["CMD", "curl", "-f", "http://elasticsearch:9200/_cluster/health"]
-    #     interval: 10s
-    #     timeout: 30s
-    #     retries: 10
     environment: 
       WAIT_HOSTS: elasticsearch:9200
     ports:
