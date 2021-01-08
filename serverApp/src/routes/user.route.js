@@ -9,19 +9,8 @@ import {
   deleteUser,
   hitsToResponse
 } from '../db/repository/user.repository';
-import { esLog } from '../middleware/elasticsearch.log';
 
-const client = elastic.getInstance();
 const router = express.Router();
-
-/**
- * Log every request 
- */
-router.use((req, res, next) => {
-  esLog(client, req);
-  next();
-})
-
 
 /**
  * get All User by user id
