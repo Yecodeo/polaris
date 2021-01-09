@@ -1,36 +1,26 @@
 import express from 'express';
-import elastic from '../db/elastic';
 
 import {
   findByUser,
-  findByPublication,
+  findInPublication,
   addPublication,
   updatePublication,
   deletePublication,
   hitsToResponse
 } from '../db/repository/publication.repository';
-import {esLog} from '../middleware/elasticsearch.log';
 
-const client = elastic.getInstance();
 const router = express.Router();
-
-/**
- * Log every request 
- */
-router.use((req, res, next) => {
-  esLog(client, req);
-  next();
-})
 
 
 /**
  * get All publication by user id
  */
 router.get('/publication/search', function (req, res, next) {
-  findByPublication(req.query.q).then(response => {
+  findInPublication(req.query.q).then(response => {
+    console.log(response);
     res.status(200).json({
       state: 'ok',
-      data: hitsToResponse(response.hits.hits),
+      data: hitsToResponse(response.body.hits.hits),
     });
   }).catch(error => {
     return res.status(500).json({
