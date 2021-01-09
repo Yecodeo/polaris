@@ -10,10 +10,6 @@ export function checkIndices(client) {
             mapping: require('./indicies/user')
         },
         {
-            index: 'publication',
-            mapping:  require('./indicies/publication')
-        },
-        {
             index: 'country',
             mapping: require('./indicies/country')
         }
