@@ -1,36 +1,42 @@
-const { Client } = require('@elastic/elasticsearch')
-const client = new Client({
-	node: `http://elasticsearch:9200`
-});
+import elastic from '../elastic';
+
+const client = elastic.getInstance();
 
 const seeds = [
 	{
 		name: 'country',
 		json: require('./data/countries.json'),
 	},
-	{
-		name: 'publication',
-		json: require('./data/publication.json')
-	},
+	// {
+	// 	name: 'publication',
+	// 	json: require('./data/publication.json')
+	// },
 	{
 		name: 'user',
 		json: require('./data/users.json')
 	},	
 ]
-seeds.map((seed) => {
-	client.indices.exists({index: seed.name}, (err, res, status) => {
-		if (res.statusCode === 404 || null) {
-			pushBulk(seed.json, seed.name);
+client.deleteByQuery({
+	index: 'user',
+	body: {
+		query: {
+			match_all: {}
 		}
+	}
+}).then(res => {
+	console.info('drop documents done.')
+	seeds.map((seed) => {
+		pushBulk(seed.json, seed.name);
 	})
-})
+}).catch(err => console.error(err))
 
 async function pushBulk(data, index) {	
 	// prepare array for bulk
+	console.info('seending index...')
 	const body = data.flatMap(doc => [{ index: { _index: index } }, doc])
 
 	const { body: bulkResponse } = await client.bulk({ refresh: true, body })
-	console.log(bulkResponse.items)
+
 	if (bulkResponse.errors) {
 		const erroredDocuments = []
 		bulkResponse.items.forEach((action, i) => {
@@ -47,7 +53,7 @@ async function pushBulk(data, index) {
 		})
 		console.log(erroredDocuments)
 
-		const { body: count } = await client.count({ index: index })
-		console.log(`${count.count} added`)
 	}
+	const { body: count } = await client.count({ index: index })
+	console.log(`${count.count} inserted`)
 }
