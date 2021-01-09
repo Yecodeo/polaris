@@ -10,22 +10,22 @@ export default function (client) {
 	client.indices.putMapping({
 		index: indexName,
 		body: {
-		properties: { 
-			prefix: { type: 'text'},
-			firstname: { type: 'text' },
-			lastname: { type: 'text' },
-			profil: {
-				properties: {
-					aboutme: { type: 'text' },
-					socials: { type: 'object' }, 
-					organisation: { type: 'text' },
-					team: { type: 'text'},
-					date: { type: 'date_range'},
-					country: { type: 'text'},
-					avatar: { type: 'text'}
+			properties: { 
+				prefix: { type: 'text'},
+				firstname: { type: 'text' },
+				lastname: { type: 'text' },
+				profil: { type: 'nested' },
+				publication: { 
+					type: 'nested',
+					properties: {
+						title: { type: 'text' },
+						auteurs: { type: 'text' },
+						annee: { type: 'date' },
+						lang: { type: 'text' }
+					} 
 				}
-			}
 		}
+
 	}
 	}, (err,resp, status) => {
 		if (err) {
