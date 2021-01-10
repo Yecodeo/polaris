@@ -2,16 +2,10 @@
   <div>
     <div class="columns is-mobile is-centered mt-1 mb-0">
       <div class="column is-half">
-        <b-field>
-          <b-input placeholder="Chercher un utilisateur" expanded>
-            <option>
-                <!-- v-for="option in data" -->
-                <!-- :value="option.id" -->
-                <!-- :key="option.id"> -->
-                <!-- {{ option.user.first_name }} -->
-              </option>
-          </b-input>
-        </b-field>  
+					<Autocomplete 
+            api="http://localhost:3001/user/search?q=" 
+            :values="['firstname', 'lastname']"
+          />
       </div>
     </div>
     <div class="columns is-mobile is-centered mt-1">
@@ -23,8 +17,13 @@
 </template>
 
 <script>
+	import Autocomplete from '../Autocomplete';
+
 export default {
   name: 'header-app',
+  components: {
+    Autocomplete
+  },
   props: {
 
   }
