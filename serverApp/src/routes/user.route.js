@@ -1,36 +1,43 @@
 import express from 'express';
+import cors from '../middleware/cors';
 
 import {
   findUser,
-  findByUser,
   addUser,
   updateUser,
   deleteUser,
   hitsToResponse,
+  findUserById,
 } from '../db/repository/user.repository';
 
 const router = express.Router();
+
+if (process.env.NODE_ENV === 'development') {
+  cors(router);
+}
 
 /**
  * get All User by user id
  */
 router.get('/user/search', (req, res) => {
-  findByUser(req.query.q).then((response) => {
+  findUser(req.query.q).then((response) => {
     res.status(200).json({
       state: 'ok',
-      data: hitsToResponse(response.body.hits.hits),
+      data: hitsToResponse(response),
     });
-  }).catch((error) => res.status(500).json({
-    state: 'error',
-    error,
-  }));
+  }).catch((error) => {
+    res.status(500).json({
+      state: 'error',
+      error,
+    });
+  });
 });
 
 /**
  * get All User by user id
  */
 router.get('/user/:id', (req, res) => {
-  findUser(req.params.id).then((response) => {
+  findUserById(req.params.id).then((response) => {
     res.status(200).json({
       state: 'ok',
       data: hitsToResponse(response.body.hits.hits),

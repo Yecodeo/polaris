@@ -19,7 +19,7 @@ router.get('/publication/search', (req, res) => {
     console.log(response);
     res.status(200).json({
       state: 'ok',
-      data: hitsToResponse(response.body.hits.hits),
+      data: hitsToResponse(response),
     });
   }).catch((error) => res.status(500).json({
     state: 'error',
@@ -34,7 +34,7 @@ router.get('/publication/:id', (req, res) => {
   findByUser(req.params.id).then((response) => {
     res.status(200).json({
       state: 'ok',
-      data: hitsToResponse(response.body.hits.hits),
+      data: hitsToResponse(response),
     });
   }).catch((error) => res.status(500).json({
     state: 'error',

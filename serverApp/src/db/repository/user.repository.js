@@ -6,13 +6,16 @@ const client = elastic.getInstance();
  * find a user by name
  * @param {user} user
  */
-export function findByUser(keywork) {
+export function findUser(keywork) {
   return client.search({
     index: 'user',
     body: {
       query: {
-        query_string: {
+        multi_match: {
           query: keywork,
+          type: 'cross_fields',
+          fields: ['firstname', 'lastname'],
+          operator: 'or',
         },
       },
     },
@@ -23,7 +26,7 @@ export function findByUser(keywork) {
  * find a User by user id
  * @param {user id} id
  */
-export function findUser(id) {
+export function findUserById(id) {
   return client.search({
     index: 'user',
     body: {
@@ -73,18 +76,19 @@ export function deleteUser(id) {
   });
 }
 
-export function hitsToResponse(hits) {
+export function hitsToResponse(array) {
+  const { body: { hits: { hits } } } = array;
   return hits.map((hit) => ({
     id: hit._id,
-    firstname: hit._source.firstname,
-    lastname: hit._source.lastname,
+    firstname: hit?._source?.firstname,
+    lastname: hit?._source?.lastname,
     profil: {
-      aboutme: hit._source.profil.aboutme,
-      socials: hit._source.profil.socials,
-      team: hit._source.profil.team,
-      date: hit._source.profil.date,
-      country: hit._source.profil.country,
-      avatar: hit._source.profil.avatar,
+      aboutme: hit?._source?.profil?.aboutme,
+      socials: hit?._source?.profil?.socials,
+      team: hit?._source?.profil?.team,
+      date: hit?._source?.profil?.date,
+      country: hit?._source?.profil?.country,
+      avatar: hit?._source?.profil?.avatar,
     },
   }));
 }

@@ -82,7 +82,7 @@ export function deleteCountry(id) {
 export function hitsToResponse(element) {
   const { body: { hits: { hits } } } = element;
   return hits.map((hit) => ({
-    name: hit._source.name,
-    code: hit._source.code,
+    name: hit?._source?.name,
+    code: hit?._source?.code,
   }));
 }

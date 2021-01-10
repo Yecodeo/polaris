@@ -82,13 +82,15 @@ export function deletePublication(id) {
   });
 }
 
-export function hitsToResponse(hits) {
+export function hitsToResponse(array) {
+  const { body: { hits: { hits } } } = array;
+
   return hits.map((hit) => ({
-    id: hit._id,
-    title: hit._source.publication.title,
-    owner: hit._source.publication.owner,
-    auteurs: hit._source.publication.auteurs,
-    annee: hit._source.publication.annee,
-    lang: hit._source.publication.lang,
+    id: hit?._id,
+    title: hit?._source?.publication?.title,
+    owner: hit?._source?.publication?.owner,
+    auteurs: hit?._source?.publication?.auteurs,
+    annee: hit?._source?.publication?.annee,
+    lang: hit?._source?.publication?.lang,
   }));
 }

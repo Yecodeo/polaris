@@ -26,12 +26,14 @@ router.get('/country/search', (req, res) => {
   searchCountry(req.query.q).then((response) => {
     res.status(200).json({
       state: 'ok',
-      data: response,
+      data: hitsToResponse(response),
     });
-  }).catch((error) => res.status(500).json({
-    state: 'error',
-    error,
-  }));
+  }).catch((error) => {
+    res.status(500).json({
+      state: 'error',
+      error,
+    });
+  });
 });
 
 /**
