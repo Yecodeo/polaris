@@ -61,7 +61,11 @@
 						</div>
 						<div class="columns">
 							<div class="column is-full">
-								<Autocomplete api="http://localhost:3001/country/search?q=" />
+								<Autocomplete 
+									api="http://localhost:3001/country/search?q=" 
+									:values="['name']"
+									label="Pays"
+								/>
 							</div>
 						</div>
 
@@ -90,6 +94,7 @@
 		},
 		data() {
 			return {
+				autocomplete_label : ['name'],
 				dates: {
 					starts: null,
 					ends: null

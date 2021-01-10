@@ -1,12 +1,19 @@
 <template>
-	<b-field class="suggests-parents" label="Pays">
+	<b-field class="suggests-parents" :label="label">
 		<b-input autocomplete="off" @input="fetchCountry" v-model="input"></b-input>
 		
-		<div v-if="suggest" class="suggests">
+		<div v-if="suggests" class="suggests">
 			<a class="suggest is-link"
-				v-for="(country, key) in suggest" :value="country" :key="key" 
-				@click="pickOne(country.name)" >
-				{{ country.name }}
+				v-for="(suggest, key) in suggests" 
+				:key="key" 
+				@click="pickOne(suggest[values])">
+				<span 
+					v-for="(prop, k) in values"
+					:key="k" 
+					:value="prop" 
+					>
+					{{ suggest[prop] }}
+				</span>
 			</a>
 		</div>
 	</b-field>
@@ -19,11 +26,12 @@
 		name: 'Autocomplete',
 		data: function() {
 			return {
-				suggest: '',
-				input: null
+				suggests: '',
+				input: null,
+				selected: this.input ? true : false,
 			}
 		},
-		props: [ 'api' ],
+		props: [ 'api', 'label', 'values' ],
 		methods: {
 			/**
 			 * search for country from privided input
@@ -32,7 +40,7 @@
 				if (this.api) {
 					let self = this;
 					axios.get(`${this.api}${this.input}`).then(function(res) {
-						self.suggest = res.data.data;
+						self.suggests = res.data.data;
 					});
 				}
 			},
@@ -41,7 +49,8 @@
 			 */
 			pickOne: function(selected)  {
 				this.input = selected;
-				this.suggest = ''
+				this.selected = true;
+				this.suggests = '';
 			}
 		}
 	}
@@ -54,7 +63,6 @@
     font-size: .875rem;
     line-height: 1.5;
     padding: .375rem 1rem;
-    position: relative;
 	cursor: pointer;
 }
 .suggest:hover {
@@ -62,7 +70,7 @@
     color: #7957d5;
 }
 .suggests {
-    position: absolute;
+    position: relative;
     left: 0rem;
     background-color: #fff;
     border-radius: 6px;
@@ -71,7 +79,6 @@
     display: block;
 	padding: 1rem 0.2rem;
     z-index: 999;
-    top: 4.5rem;
     width: 100%;
 }
 .suggests-parents {
