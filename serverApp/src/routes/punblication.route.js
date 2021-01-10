@@ -6,106 +6,95 @@ import {
   addPublication,
   updatePublication,
   deletePublication,
-  hitsToResponse
+  hitsToResponse,
 } from '../db/repository/publication.repository';
 
 const router = express.Router();
 
-
 /**
  * get All publication by user id
  */
-router.get('/publication/search', function (req, res, next) {
-  findInPublication(req.query.q).then(response => {
+router.get('/publication/search', (req, res) => {
+  findInPublication(req.query.q).then((response) => {
     console.log(response);
     res.status(200).json({
       state: 'ok',
       data: hitsToResponse(response.body.hits.hits),
     });
-  }).catch(error => {
-    return res.status(500).json({
-      state: 'error',
-      error
-    })
-  });
+  }).catch((error) => res.status(500).json({
+    state: 'error',
+    error,
+  }));
 });
 
 /**
  * get All publication by user id
  */
-router.get('/publication/:id', function (req, res, next) {
-  findByUser(req.params.id).then(response => {
+router.get('/publication/:id', (req, res) => {
+  findByUser(req.params.id).then((response) => {
     res.status(200).json({
       state: 'ok',
       data: hitsToResponse(response.body.hits.hits),
     });
-  }).catch(error => {
-    return res.status(500).json({
-      state: 'error',
-      error
-    })
-  });
+  }).catch((error) => res.status(500).json({
+    state: 'error',
+    error,
+  }));
 });
 
 /**
  * Add new publication
  */
-router.post('/publication', function (req, res) {
-  addPublication(req.body).then(response => {
-    console.log(response)
+router.post('/publication', (req, res) => {
+  addPublication(req.body).then((response) => {
+    console.log(response);
     return res.status(200).json({
       state: 'ok',
       data: {
         id: response.body._id,
-        result: response.body.result
-      }
+        result: response.body.result,
+      },
     });
-  }).catch(error => {
-    return res.status(500).json({
-      state: 'error',
-      error
-    })
-  });
+  }).catch((error) => res.status(500).json({
+    state: 'error',
+    error,
+  }));
 });
 
 /**
  * update a publication
  */
-router.put('/publication/:id', function (req, res) {
-  updatePublication(req.params.id, req.body).then(response => {
+router.put('/publication/:id', (req, res) => {
+  updatePublication(req.params.id, req.body).then((response) => {
     res.status(200).json({
       state: 'ok',
       data: {
         id: response.body._id,
-        result: response.body.result
-      }
+        result: response.body.result,
+      },
     });
-  }).catch(error => {
-    return res.status(500).json({
-      state: 'error',
-      error: error
-    })
-  });
+  }).catch((error) => res.status(500).json({
+    state: 'error',
+    error,
+  }));
 });
 
 /**
  * delete a publication
  */
-router.delete('/publication/:id', function (req, res) {
-  deletePublication(req.params.id).then(response => {
+router.delete('/publication/:id', (req, res) => {
+  deletePublication(req.params.id).then((response) => {
     res.status(200).json({
       state: 'ok',
       data: {
         id: response.body._id,
-        result: response.body.result
-      }
+        result: response.body.result,
+      },
     });
-  }).catch(error => {
-    return res.status(500).json({
-      state: 'error',
-      error
-    })
-  });
+  }).catch((error) => res.status(500).json({
+    state: 'error',
+    error,
+  }));
 });
 
 export default router;
