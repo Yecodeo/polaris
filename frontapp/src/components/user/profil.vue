@@ -44,29 +44,27 @@
 						<b-field label="Équipe">
 							<b-input></b-input>
 						</b-field>
-							<h6 class="title is-6">Dates</h6>
-							<div class="columns">
-								<div class="column is-6">
-									<b-field>
-										<b-datepicker placeholder="cliquez pour choisir" v-model="dates.starts">
-										</b-datepicker>
-									</b-field>
-								</div>
-								<div class="column is-6">
-									<b-field>
-										<b-datepicker placeholder="cliquez pour choisir" v-model="dates.ends">
-										</b-datepicker>
-									</b-field>
-								</div>
-
+						<h6 class="title is-6">Dates</h6>
+						<div class="columns">
+							<div class="column is-6">
+								<b-field>
+									<b-datepicker placeholder="cliquez pour choisir" v-model="dates.starts">
+									</b-datepicker>
+								</b-field>
 							</div>
-							<b-field label="Pays">
-								<b-select placeholder="Selectionnez un pays" expanded>
-									<option v-for="(el, key) in pays" :value="el" :key="key">
-										{{ el }}
-									</option>
-								</b-select>
-							</b-field>
+							<div class="column is-6">
+								<b-field>
+									<b-datepicker placeholder="cliquez pour choisir" v-model="dates.ends">
+									</b-datepicker>
+								</b-field>
+							</div>
+						</div>
+						<div class="columns">
+							<div class="column is-full">
+								<Autocomplete api="http://localhost:3001/country/search?q=" />
+							</div>
+						</div>
+
 					</template>
 
 				</div>
@@ -82,11 +80,13 @@
 
 <script>
 	import Upload from '../misc/Upload';
+	import Autocomplete from '../Autocomplete';
 
 	export default {
 		name: 'Profil',
 		components: {
-			Upload
+			Upload,
+			Autocomplete,
 		},
 		data() {
 			return {
@@ -100,11 +100,16 @@
 					select: 'LinkedIn'
 				}],
 				socials: ['Facebook', 'Twitter', 'LinkedIn', 'Orcid'],
-				pays: ['France', 'Belgique', 'Espagne', 'Italie'],
+				country: {},
 				organisations: ['Énergie, Recherche et Science', 'Économie et Société numériques',
 					'Protection des consommateurs', 'Budget / Santé	'
 				],
+				name: ''
+
 			}
+		},
+		computed: {
+
 		},
 		methods: {
 			toggle: function () {
@@ -120,7 +125,6 @@
 				const index = this.socialInputs.indexOf(el);
 				this.socialInputs.splice(index, 1);
 			}
-
 		}
 
 	}
