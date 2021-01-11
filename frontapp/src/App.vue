@@ -1,7 +1,7 @@
 <template>
   <div class="container is-fluid">
       <Header-app> </Header-app>
-        <section class="main-content columns is-fullheight">
+        <section v-if="$store.getters.getUser.id" class="main-content columns is-fullheight">
           <Menu-app></Menu-app>
           <Core-app></Core-app>
         </section>
