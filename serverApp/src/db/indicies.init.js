@@ -26,7 +26,9 @@ export default function checkIndices(client) {
       } else {
         client.indices.create({ index: module.index }, (error, response, state) => {
           // create mapping
-          module.mapping.default(client);
+          if (module) {
+            module.mapping(client);
+          }
           console.info(error, response, state);
         });
       }
