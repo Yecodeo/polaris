@@ -15,14 +15,26 @@ export default function user(client) {
         prefix: { type: 'text' },
         firstname: { type: 'text' },
         lastname: { type: 'text' },
-        profil: { type: 'nested' },
-        publication: {
+        profil: {
           type: 'nested',
           properties: {
-            title: { type: 'text' },
+            aboutme: { type: 'text' },
+            socials: { type: 'object' },
+            avatar: { type: 'text' },
+          },
+        },
+        affiliation: {
+          type: 'nested',
+          properties: {
+            organisation: { type: 'text' },
+            post: { type: 'text' },
             auteurs: { type: 'text' },
-            annee: { type: 'date' },
-            lang: { type: 'text' },
+            equipe: { type: 'text' },
+            date: {
+              lte: { type: 'date' },
+              gte: { type: 'date' },
+            },
+            country: { type: 'text' },
           },
         },
       },
