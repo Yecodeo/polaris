@@ -13,14 +13,14 @@
 
 import Header from './components/layout/Header';
 import Menu from './components/layout/Menu';
-import CoreUi from './components/layout/CoreUi';
+import Body from './components/layout/body';
 
 export default {
   name: 'App',
   components: {
     'Header-app': Header,
     'Menu-app': Menu,
-    'Core-app': CoreUi,
+    'Core-app': Body,
   }
 }
 </script>
