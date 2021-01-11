@@ -2,20 +2,20 @@ import express from 'express';
 
 import {
   findByUser,
-  findInPublication,
-  addPublication,
-  updatePublication,
-  deletePublication,
+  findInAffiliation,
+  addAffiliation,
+  updateAffiliation,
+  deleteAffiliation,
   hitsToResponse,
-} from '../db/repository/publication.repository';
+} from '../db/repository/affiliation.repository';
 
 const router = express.Router();
 
 /**
- * get All publication by user id
+ * get All affiliation by user id
  */
-router.get('/publication/search', (req, res) => {
-  findInPublication(req.query.q).then((response) => {
+router.get('/affiliation/search', (req, res) => {
+  findInAffiliation(req.query.q).then((response) => {
     console.log(response);
     res.status(200).json({
       state: 'ok',
@@ -28,9 +28,9 @@ router.get('/publication/search', (req, res) => {
 });
 
 /**
- * get All publication by user id
+ * get All affiliation by user id
  */
-router.get('/publication/:id', (req, res) => {
+router.get('/affiliation/:id', (req, res) => {
   findByUser(req.params.id).then((response) => {
     res.status(200).json({
       state: 'ok',
@@ -43,10 +43,10 @@ router.get('/publication/:id', (req, res) => {
 });
 
 /**
- * Add new publication
+ * Add new affiliation
  */
-router.post('/publication', (req, res) => {
-  addPublication(req.body).then((response) => {
+router.post('/affiliation', (req, res) => {
+  addAffiliation(req.body).then((response) => {
     console.log(response);
     return res.status(200).json({
       state: 'ok',
@@ -62,10 +62,10 @@ router.post('/publication', (req, res) => {
 });
 
 /**
- * update a publication
+ * update a affiliation
  */
-router.put('/publication/:id', (req, res) => {
-  updatePublication(req.params.id, req.body).then((response) => {
+router.put('/affiliation/:id', (req, res) => {
+  updateAffiliation(req.params.id, req.body).then((response) => {
     res.status(200).json({
       state: 'ok',
       data: {
@@ -80,10 +80,10 @@ router.put('/publication/:id', (req, res) => {
 });
 
 /**
- * delete a publication
+ * delete a affiliation
  */
-router.delete('/publication/:id', (req, res) => {
-  deletePublication(req.params.id).then((response) => {
+router.delete('/affiliation/:id', (req, res) => {
+  deleteAffiliation(req.params.id).then((response) => {
     res.status(200).json({
       state: 'ok',
       data: {
