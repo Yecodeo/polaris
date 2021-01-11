@@ -1,6 +1,6 @@
-import General from '../components/user/general';
-import Profil from '../components/user/profil';
-import Publication from '../components/user/publication';
+import General from '../components/pages/general';
+import Profil from '../components/pages/profil';
+import Publication from '../components/pages/publication';
 export default [
 	{path: '/', component: General},
 	{path: '/profil', component: Profil},
