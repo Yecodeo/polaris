@@ -4,31 +4,27 @@
 			<div class="columns">
 				<div class="column is-two-fifths mt-4">
 					<b-field label="Prénom">
-						<b-input></b-input>
+						<b-input 
+							v-model="user.firstname" 
+							@blur="save({firstname: user.firstname})">
+						</b-input>
 					</b-field>
 					<b-field label="Nom">
-						<b-input></b-input>
+						<b-input 
+							v-model="user.lastname" 
+							@blur="save({lastname: user.lastname})">
+						</b-input>
 					</b-field>
 					<b-field label="About me">
-						<b-input type="textarea" minlength="10" maxlength="100"></b-input>
+						<b-input 
+							v-model="user.profil.aboutme" 
+							type="textarea" 
+							maxlength="400"
+							@blur="save({profil: { aboutme:  user.profil.aboutme }})">
+						</b-input>
 					</b-field>
 					<h6 class="title is-6">Social Ids</h6>
-
-					<div class="media-social">
-						<div v-for="(media, index) in socialInputs" :key="`social-${index}`">
-							<b-field>
-								<b-input v-model="media.value" expanded></b-input>
-								<b-select v-model="media.select" placeholder="selectionnez un media">
-									<option v-for="(option, key) in socials" :value="option" :key="key">
-										{{ option }}
-									</option>
-								</b-select>
-								<b-button @click="addField" type="is-success is-light">+</b-button>
-								<b-button @click="removeField" :disabled="socialInputs.length <= 1"
-									type="is-danger is-light">-</b-button>
-							</b-field>
-						</div>
-					</div>
+					<Social :socials="user.profil.socials" />
 
 					<b-button class="my-4" v-on:click="toggle" type="is-primary is-light">Ajouté une affiliation
 					</b-button>
@@ -86,26 +82,26 @@
 <script>
 	import Upload from '../common/Upload';
 	import Autocomplete from '../common/Autocomplete';
+	import axios from 'axios';
+	import { ToastProgrammatic as toast } from 'buefy'
+	import Social from '../common/Social';
 
 	export default {
 		name: 'Profil',
 		components: {
 			Upload,
 			Autocomplete,
+			Social,
 		},
 		data() {
 			return {
 				api_url: '',
+				user: '',
 				dates: {
 					starts: null,
 					ends: null
 				},
 				showAffeliation: false,
-				socialInputs: [{
-					value: '',
-					select: 'LinkedIn'
-				}],
-				socials: ['Facebook', 'Twitter', 'LinkedIn', 'Orcid'],
 				country: {},
 				organisations: ['Énergie, Recherche et Science', 'Économie et Société numériques',
 					'Protection des consommateurs', 'Budget / Santé	'
@@ -114,23 +110,36 @@
 
 			}
 		},
+		beforeMount() {
+			this.user = this.$store.getters.getUser;
+		},
 		mounted() {
-			this.api_url = `${this.$store.getters.getApiUrl}/country/search?q=`
+			this.api_url = `${this.$store.getters.getApiUrl}`
 		},
 		methods: {
+			save: function(index) {
+				const id = this.user.id;
+				axios.put(`${this.api_url}/user/${id}`, index).then((res) => {
+					const { data: { data: { result }}} = res;
+					if (result === 'updated') {
+						this.toaster('Mise à jour effectué', 'success')
+					}
+				}).catch( (error) => {
+					console.error(error);
+					this.toaster('Echec de la mise à jour', 'danger')
+				});
+			},
+			toaster: function(message, label) {
+				toast.open({
+					message,
+					duration: 2500,
+                    type: `is-${label}`
+                })
+			},
 			toggle: function () {
 				this.showAffeliation = !this.showAffeliation;
 			},
-			addField: function () {
-				this.socialInputs.push({
-					value: '',
-					select: ''
-				});
-			},
-			removeField: function (el) {
-				const index = this.socialInputs.indexOf(el);
-				this.socialInputs.splice(index, 1);
-			}
+
 		}
 
 	}
