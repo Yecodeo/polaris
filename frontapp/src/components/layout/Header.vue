@@ -3,14 +3,15 @@
     <div class="columns is-mobile is-centered mt-1 mb-0">
       <div class="column is-half">
 					<Autocomplete 
-            api="http://localhost:3001/user/search?q=" 
+            :api="api_url" 
             :values="['firstname', 'lastname']"
+            dispatch="setUser"
           />
       </div>
     </div>
     <div class="columns is-mobile is-centered mt-1">
       <div class="column is-half has-text-centered pt-0">
-          <b-button type="is-primary">Recherche</b-button>
+          <b-button type="is-primary">Rechercher</b-button>
       </div>
     </div>
   </div>
@@ -24,13 +25,17 @@ export default {
   components: {
     Autocomplete
   },
-  props: {
-
+  data: function() {
+    return {
+      api_url: ''
+    }
+  },
+  mounted: function() {
+    this.api_url = `${this.$store.getters.getApiUrl}/user/search?q=`
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>
