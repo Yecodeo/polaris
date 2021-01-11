@@ -1,43 +1,35 @@
 <template>
 	<div>
-		<div class="card mb-4">
-			<div class="card-content">
-				<div class="media">
-					<div class="media-content">
-						<p class="title is-5">Comissariate à l'énergie atomique</p>
-						<p class="subtitle is-6">Cherchereur poste doctoral</p>
+		<template v-for="(affiliation, key) in $store.getters.getAffiliation" >
+			<div :key="key" class="card mb-4">
+				<div class="card-content">
+					<div class="media mb-3">
+						<div class="media-content">
+							<p class="title is-5">{{ affiliation.organisation }}</p>
+							<p class="subtitle is-6">{{ affiliation.post }}</p>
+						</div>
+					</div>
+
+					<div class="content">
+						<p class="subtitle is-6 mb-1">{{ affiliation.equipe }}</p>
+						<p class="subtitle is-6 mb-1">{{ affiliation.annee }}</p>
+						<b-field class="mb-1">
+							<b-tag>{{ affiliation.date.lte }} - {{ affiliation.date.gte }}</b-tag>
+						</b-field>
+						<span>{{ affiliation.country }}</span>
 					</div>
 				</div>
-
-				<div class="content">
-					<p class="subtitle is-5 mb-1">Équipe de recherche en fission nucléaire</p>
-					<p class="subtitle is-6 mb-1">depuis 2017</p>
-					<span>France</span>
-				</div>
 			</div>
-		</div>
-		<div class="card mb-4">
-			<div class="card-content">
-				<div class="media">
-					<div class="media-content">
-						<p class="title is-5">Comissariate à l'énergie atomique</p>
-						<p class="subtitle is-6">Cherchereur poste doctoral</p>
-					</div>
-				</div>
-
-				<div class="content">
-					<p class="subtitle is-5 mb-1">Équipe de recherche en fission nucléaire</p>
-					<p class="subtitle is-6 mb-1">depuis 2017</p>
-					<span>France</span>
-				</div>
-			</div>
-		</div>
+		</template>
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'General'
+		name: 'General',
+		mounted() {
+			console.log(this.$store.getters.getAffiliation)
+		}
 	}
 </script>
 

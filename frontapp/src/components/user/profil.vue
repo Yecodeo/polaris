@@ -62,9 +62,10 @@
 						<div class="columns">
 							<div class="column is-full">
 								<Autocomplete 
-									api="http://localhost:3001/country/search?q=" 
+									:api="api_url" 
 									:values="['name']"
 									label="Pays"
+									dispatch="setCountry"
 								/>
 							</div>
 						</div>
@@ -94,7 +95,7 @@
 		},
 		data() {
 			return {
-				autocomplete_label : ['name'],
+				api_url: '',
 				dates: {
 					starts: null,
 					ends: null
@@ -113,8 +114,8 @@
 
 			}
 		},
-		computed: {
-
+		mounted() {
+			this.api_url = `${this.$store.getters.getApiUrl}/country/search?q=`
 		},
 		methods: {
 			toggle: function () {
