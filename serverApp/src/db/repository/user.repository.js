@@ -11,11 +11,9 @@ export function findUser(keywork) {
     index: 'user',
     body: {
       query: {
-        multi_match: {
-          query: keywork,
-          type: 'cross_fields',
+        query_string: {
+          query: `*${keywork}*`,
           fields: ['firstname', 'lastname'],
-          operator: 'or',
         },
       },
     },
@@ -80,15 +78,10 @@ export function hitsToResponse(array) {
   const { body: { hits: { hits } } } = array;
   return hits.map((hit) => ({
     id: hit._id,
+    prefix: hit?._source?.prefix,
     firstname: hit?._source?.firstname,
     lastname: hit?._source?.lastname,
-    profil: {
-      aboutme: hit?._source?.profil?.aboutme,
-      socials: hit?._source?.profil?.socials,
-      team: hit?._source?.profil?.team,
-      date: hit?._source?.profil?.date,
-      country: hit?._source?.profil?.country,
-      avatar: hit?._source?.profil?.avatar,
-    },
+    profil: hit?._source?.profil,
+    affiliation: hit?._source?.affiliation,
   }));
 }
