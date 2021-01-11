@@ -1,12 +1,12 @@
 <template>
 	<b-field class="suggests-parents" :label="label">
-		<b-input autocomplete="off" @input="fetchCountry" v-model="input"></b-input>
+		<b-input autocomplete="off" @input="fetch" v-model="input"></b-input>
 		
-		<div v-if="suggests" class="suggests">
+		<div v-if="suggests && input.length >= 3" class="suggests">
 			<a class="suggest is-link"
 				v-for="(suggest, key) in suggests" 
 				:key="key" 
-				@click="pickOne(suggest[values])">
+				@click="pickOne(suggest)">
 				<span 
 					v-for="(prop, k) in values"
 					:key="k" 
@@ -28,16 +28,12 @@
 			return {
 				suggests: '',
 				input: null,
-				selected: this.input ? true : false,
 			}
 		},
-		props: [ 'api', 'label', 'values' ],
+		props: [ 'api', 'label', 'values', 'dispatch' ],
 		methods: {
-			/**
-			 * search for country from privided input
-			 */
-			fetchCountry: function() {
-				if (this.api) {
+			fetch: function() {
+				if (this.api && this.input.length >= 3) {
 					let self = this;
 					axios.get(`${this.api}${this.input}`).then(function(res) {
 						self.suggests = res.data.data;
@@ -48,9 +44,10 @@
 			 * make choses and close suggest list
 			 */
 			pickOne: function(selected)  {
-				this.input = selected;
-				this.selected = true;
+				const label = this.values.map(el => selected[el]).join(' ');
+				this.input = label;
 				this.suggests = '';
+				this.$store.dispatch(this.dispatch, selected)
 			}
 		}
 	}
@@ -70,7 +67,7 @@
     color: #7957d5;
 }
 .suggests {
-    position: relative;
+    position: absolute;
     left: 0rem;
     background-color: #fff;
     border-radius: 6px;
