@@ -6,18 +6,18 @@ const client = elastic.getInstance();
  * find a user by name
  * @param {user} user
  */
-export function findInPublication(keywork) {
+export function findInAffiliation(keywork) {
   return client.search({
     index: 'user',
     body: {
       query: {
         nested: {
-          path: 'publication',
+          path: 'affiliation',
           query: {
             bool: {
               must: [{
                 match: {
-                  'publication.title': keywork,
+                  'affiliation.organisation': keywork,
                 },
               }],
             },
@@ -29,12 +29,12 @@ export function findInPublication(keywork) {
 }
 
 /**
- * find a publication by user id
+ * find a affiliation by user id
  * @param {user id} id
  */
 export function findByUser(id) {
   return client.search({
-    index: 'publication',
+    index: 'affiliation',
     body: {
       query: {
         match: {
@@ -46,24 +46,24 @@ export function findByUser(id) {
 }
 
 /**
- * Add new publication
+ * Add new affiliation
  * @param {Json} body
  */
-export function addPublication(body) {
+export function addAffiliation(body) {
   return client.index({
-    index: 'publication',
+    index: 'affiliation',
     body,
   });
 }
 
 /**
- * update a publication
+ * update a affiliation
  * @param {Object} body
  */
-export function updatePublication(id, body) {
+export function updateAffiliation(id, body) {
   console.log(id, body);
   return client.update({
-    index: 'publication',
+    index: 'affiliation',
     id,
     body: {
       doc: body,
@@ -72,12 +72,12 @@ export function updatePublication(id, body) {
 }
 
 /**
- * delete a publication
+ * delete a affiliation
  * @param {id} id
  */
-export function deletePublication(id) {
+export function deleteAffiliation(id) {
   return client.delete({
-    index: 'publication',
+    index: 'affiliation',
     id,
   });
 }
@@ -87,10 +87,10 @@ export function hitsToResponse(array) {
 
   return hits.map((hit) => ({
     id: hit?._id,
-    title: hit?._source?.publication?.title,
-    owner: hit?._source?.publication?.owner,
-    auteurs: hit?._source?.publication?.auteurs,
-    annee: hit?._source?.publication?.annee,
-    lang: hit?._source?.publication?.lang,
+    title: hit?._source?.affiliation?.title,
+    owner: hit?._source?.affiliation?.owner,
+    auteurs: hit?._source?.affiliation?.auteurs,
+    annee: hit?._source?.affiliation?.annee,
+    lang: hit?._source?.affiliation?.lang,
   }));
 }
