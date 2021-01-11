@@ -1,7 +1,6 @@
 <template>
 	<b-field class="suggests-parents" :label="label">
 		<b-input autocomplete="off" @input="fetch" v-model="input"></b-input>
-		
 		<div v-if="suggests && input.length >= 3" class="suggests">
 			<a class="suggest is-link"
 				v-for="(suggest, key) in suggests" 
@@ -37,7 +36,7 @@
 					let self = this;
 					axios.get(`${this.api}${this.input}`).then(function(res) {
 						self.suggests = res.data.data;
-					});
+					}).catch(error => console.error(error));
 				}
 			},
 			/**

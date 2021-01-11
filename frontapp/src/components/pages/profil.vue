@@ -84,8 +84,8 @@
 </template>
 
 <script>
-	import Upload from '../misc/Upload';
-	import Autocomplete from '../Autocomplete';
+	import Upload from '../common/Upload';
+	import Autocomplete from '../common/Autocomplete';
 
 	export default {
 		name: 'Profil',

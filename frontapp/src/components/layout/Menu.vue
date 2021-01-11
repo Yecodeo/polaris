@@ -46,7 +46,7 @@
 import Facebook from 'vue-material-design-icons/Facebook';
 import Linkedin from 'vue-material-design-icons/Linkedin';
 import Twitter from 'vue-material-design-icons/Twitter';
-import Orcid from '../assets/icons/Orcid';
+import Orcid from '../common/assets/icons/Orcid';
 
 export default {
   name: 'Menu',

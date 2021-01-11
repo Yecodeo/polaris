@@ -18,7 +18,7 @@
 </template>
 
 <script>
-	import Autocomplete from '../Autocomplete';
+	import Autocomplete from '../common/Autocomplete';
 
 export default {
   name: 'header-app',

@@ -27,7 +27,7 @@
 
 <script>
   export default {
-    name: 'Core-ui',
+    name: 'Body',
 
   }
 </script>

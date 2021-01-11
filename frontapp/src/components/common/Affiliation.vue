@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<template v-for="(affiliation, key) in $store.getters.getAffiliation" >
+		<template v-for="(affiliation, key) in affiliations" >
 			<div :key="key" class="card mb-4">
 				<div class="card-content">
 					<div class="media mb-3">
@@ -25,15 +25,13 @@
 </template>
 
 <script>
-	export default {
-		name: 'General',
-		mounted() {
-			console.log(this.$store.getters.getAffiliation)
-		}
-	}
+export default {
+	name: 'Affiliation',
+	props: ['affiliations']
+}
 </script>
 
-<style>
+<style scoped>
 	.card {
 		box-shadow: 0 0.5em 1em -0.425em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02) !important;
 	}
