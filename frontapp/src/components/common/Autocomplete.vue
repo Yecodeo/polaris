@@ -1,6 +1,6 @@
 <template>
 	<b-field class="suggests-parents" :label="label">
-		<b-input autocomplete="off" @input="fetch" v-model="input"></b-input>
+		<b-input autocomplete="off" required @input="fetch" v-model="input"></b-input>
 		<div v-if="suggests && input.length >= 3" class="suggests">
 			<a class="suggest is-link"
 				v-for="(suggest, key) in suggests" 
@@ -29,7 +29,7 @@
 				input: null,
 			}
 		},
-		props: [ 'api', 'label', 'values', 'dispatch' ],
+		props: [ 'api', 'label', 'values', 'dispatch', 'required' ],
 		methods: {
 			fetch: function() {
 				if (this.api && this.input.length >= 3) {
