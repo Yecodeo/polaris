@@ -6,13 +6,13 @@
 					<b-field label="Prénom">
 						<b-input 
 							v-model="user.firstname" 
-							@blur="save({firstname: user.firstname})">
+							@blur="persiste({firstname: user.firstname})">
 						</b-input>
 					</b-field>
 					<b-field label="Nom">
 						<b-input 
 							v-model="user.lastname" 
-							@blur="save({lastname: user.lastname})">
+							@blur="persiste({lastname: user.lastname})">
 						</b-input>
 					</b-field>
 					<b-field label="About me">
@@ -20,11 +20,14 @@
 							v-model="user.profil.aboutme" 
 							type="textarea" 
 							maxlength="400"
-							@blur="save({profil: { aboutme:  user.profil.aboutme }})">
+							@blur="persiste({profil: { aboutme:  user.profil.aboutme }})">
 						</b-input>
 					</b-field>
 					<h6 class="title is-6">Social Ids</h6>
-					<Social :socials="user.profil.socials" />
+					<Social 
+						:socials="user.profil.socials" 
+						:api_url="updateUser"
+					/>
 
 					<b-button class="my-4" v-on:click="toggle" type="is-primary is-light">Ajouté une affiliation
 					</b-button>
@@ -82,9 +85,8 @@
 <script>
 	import Upload from '../common/Upload';
 	import Autocomplete from '../common/Autocomplete';
-	import axios from 'axios';
-	import { ToastProgrammatic as toast } from 'buefy'
 	import Social from '../common/Social';
+	import save from '../../helper/save';
 
 	export default {
 		name: 'Profil',
@@ -96,6 +98,7 @@
 		data() {
 			return {
 				api_url: '',
+				updateUser: '',
 				user: '',
 				dates: {
 					starts: null,
@@ -114,27 +117,13 @@
 			this.user = this.$store.getters.getUser;
 		},
 		mounted() {
-			this.api_url = `${this.$store.getters.getApiUrl}`
+			this.api_url = `${this.$store.getters.getApiUrl}`,
+			this.updateUser = `${this.api_url}/user/${this.user.id}`
 		},
 		methods: {
-			save: function(index) {
-				const id = this.user.id;
-				axios.put(`${this.api_url}/user/${id}`, index).then((res) => {
-					const { data: { data: { result }}} = res;
-					if (result === 'updated') {
-						this.toaster('Mise à jour effectué', 'success')
-					}
-				}).catch( (error) => {
-					console.error(error);
-					this.toaster('Echec de la mise à jour', 'danger')
-				});
-			},
-			toaster: function(message, label) {
-				toast.open({
-					message,
-					duration: 2500,
-                    type: `is-${label}`
-                })
+			persiste: function(body) {
+				const url = `${this.api_url}/user/${this.user.id}`
+				save(url, body);
 			},
 			toggle: function () {
 				this.showAffeliation = !this.showAffeliation;
