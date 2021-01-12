@@ -38,6 +38,7 @@ export default new Vuex.Store({
     setAffiliation(state, payload) {
       state.commit('setAffiliation', payload);
     }
+
   },
   modules: {
   }
