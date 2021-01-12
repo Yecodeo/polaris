@@ -1,6 +1,7 @@
 import elastic from '../elastic';
 
 const client = elastic.getInstance();
+const index = 'user';
 
 /**
  * find a user by name
@@ -8,7 +9,7 @@ const client = elastic.getInstance();
  */
 export function findUser(keywork) {
   return client.search({
-    index: 'user',
+    index,
     body: {
       query: {
         query_string: {
@@ -26,7 +27,7 @@ export function findUser(keywork) {
  */
 export function findUserById(id) {
   return client.search({
-    index: 'user',
+    index,
     body: {
       query: {
         match: {
@@ -43,7 +44,7 @@ export function findUserById(id) {
  */
 export function addUser(body) {
   return client.index({
-    index: 'user',
+    index,
     body,
   });
 }
@@ -55,7 +56,7 @@ export function addUser(body) {
 export function updateUser(id, body) {
   console.log(id, body);
   return client.update({
-    index: 'user',
+    index,
     id,
     body: {
       doc: body,
@@ -69,7 +70,7 @@ export function updateUser(id, body) {
  */
 export function deleteUser(id) {
   return client.delete({
-    index: 'user',
+    index,
     id,
   });
 }

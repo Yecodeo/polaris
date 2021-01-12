@@ -1,27 +1,19 @@
 import elastic from '../elastic';
 
 const client = elastic.getInstance();
-
+const index = 'affiliation';
 /**
  * find a user by name
  * @param {user} user
  */
 export function findInAffiliation(keywork) {
   return client.search({
-    index: 'user',
+    index,
     body: {
       query: {
-        nested: {
-          path: 'affiliation',
-          query: {
-            bool: {
-              must: [{
-                match: {
-                  'affiliation.organisation': keywork,
-                },
-              }],
-            },
-          },
+        query_string: {
+          query: `*${keywork}*`,
+          fields: ['organisation', 'equipe'],
         },
       },
     },
@@ -32,9 +24,9 @@ export function findInAffiliation(keywork) {
  * find a affiliation by user id
  * @param {user id} id
  */
-export function findByUser(id) {
+export function findByAffiliation(id) {
   return client.search({
-    index: 'affiliation',
+    index,
     body: {
       query: {
         match: {
@@ -51,7 +43,7 @@ export function findByUser(id) {
  */
 export function addAffiliation(body) {
   return client.index({
-    index: 'affiliation',
+    index,
     body,
   });
 }
@@ -63,7 +55,7 @@ export function addAffiliation(body) {
 export function updateAffiliation(id, body) {
   console.log(id, body);
   return client.update({
-    index: 'affiliation',
+    index,
     id,
     body: {
       doc: body,
@@ -77,20 +69,18 @@ export function updateAffiliation(id, body) {
  */
 export function deleteAffiliation(id) {
   return client.delete({
-    index: 'affiliation',
+    index,
     id,
   });
 }
 
 export function hitsToResponse(array) {
   const { body: { hits: { hits } } } = array;
-
   return hits.map((hit) => ({
-    id: hit?._id,
-    title: hit?._source?.affiliation?.title,
-    owner: hit?._source?.affiliation?.owner,
-    auteurs: hit?._source?.affiliation?.auteurs,
-    annee: hit?._source?.affiliation?.annee,
-    lang: hit?._source?.affiliation?.lang,
+    _user: hit._source?._user,
+    organisation: hit?._source?.organisation,
+    post: hit?._source?.post,
+    date: hit?._source?.date,
+    country: hit?._source?.country,
   }));
 }

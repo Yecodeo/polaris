@@ -40,7 +40,7 @@ router.get('/user/:id', (req, res) => {
   findUserById(req.params.id).then((response) => {
     res.status(200).json({
       state: 'ok',
-      data: hitsToResponse(response.body.hits.hits),
+      data: hitsToResponse(response),
     });
   }).catch((error) => res.status(500).json({
     state: 'error',

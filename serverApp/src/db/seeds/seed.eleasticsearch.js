@@ -1,14 +1,21 @@
 import axios from 'axios';
+import country from './data/countries.json';
+import user from './data/users.json';
+import affiliation from './data/affiliation.json';
 
 const uri = 'http://localhost:9200';
 
 const seeds = [{
   name: 'country',
-  json: require('./data/countries.json'),
+  json: country,
 },
 {
   name: 'user',
-  json: require('./data/users.json'),
+  json: user,
+},
+{
+  name: 'affiliation',
+  json: affiliation,
 },
 ];
 

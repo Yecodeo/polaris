@@ -1,5 +1,6 @@
-import userIndex from './indicies/user';
-import countryIndex from './indicies/country';
+import userIndex from './mapping/user';
+import countryIndex from './mapping/country';
+import affiliationIndex from './mapping/affiliation';
 
 /**
  * load index et create them if not exist
@@ -15,6 +16,10 @@ export default function checkIndices(client) {
     {
       index: 'country',
       mapping: countryIndex,
+    },
+    {
+      index: 'affiliation',
+      mapping: affiliationIndex,
     },
 
   ];
