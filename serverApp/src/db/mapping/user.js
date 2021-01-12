@@ -23,22 +23,7 @@ export default function user(client) {
             avatar: { type: 'text' },
           },
         },
-        affiliation: {
-          type: 'nested',
-          properties: {
-            organisation: { type: 'text' },
-            post: { type: 'text' },
-            auteurs: { type: 'text' },
-            equipe: { type: 'text' },
-            date: {
-              lte: { type: 'date' },
-              gte: { type: 'date' },
-            },
-            country: { type: 'text' },
-          },
-        },
       },
-
     },
   }, (err, resp, status) => {
     if (err) {
