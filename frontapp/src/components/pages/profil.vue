@@ -31,10 +31,15 @@
 
 					<b-button class="my-4" v-on:click="toggle" type="is-primary is-light">Ajouté une affiliation
 					</b-button>
-
+					<a 
+						v-on:click="toggle" 
+						v-if="showAffeliation" 
+						class="delete my-4 is-pulled-right has-background-danger">
+					</a>
 					<template v-if="showAffeliation">
+						
 						<b-field label="Organisation">
-							<b-select placeholder="Selectionnez une organisation" expanded>
+							<b-select required placeholder="Selectionnez une organisation" expanded>
 								<option v-for="(org, key) in organisations" :value="org" :key="key">
 									{{ org }}
 								</option>
@@ -65,6 +70,7 @@
 									:values="['name']"
 									label="Pays"
 									dispatch="setCountry"
+									required
 								/>
 							</div>
 						</div>
@@ -104,7 +110,7 @@
 					starts: null,
 					ends: null
 				},
-				showAffeliation: false,
+				showAffeliation: true,
 				country: {},
 				organisations: ['Énergie, Recherche et Science', 'Économie et Société numériques',
 					'Protection des consommateurs', 'Budget / Santé	'
