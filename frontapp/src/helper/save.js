@@ -1,24 +1,11 @@
-import { ToastProgrammatic as toast } from 'buefy'
+import toaster from '../helper/toaster';
 import axios from 'axios';
-
-/**
- * fire a toast on page 
- * @param {*} message 
- * @param {*} label 
- */
-function toaster(message, label) {
-	toast.open({
-		message,
-		duration: 2500,
-		type: `is-${label}`
-	})
-}
 
 /**
  * push modification to elastic search
  * @param {*} index 
  */
-export default function(url, body) {
+export function update(url, body) {
 	axios.put(url, body).then((res) => {
 		const { data: { data: { result }}} = res;
 		if (result === 'updated') {
@@ -26,6 +13,22 @@ export default function(url, body) {
 		}
 	}).catch( (error) => {
 		console.error(error);
+		toaster('Echec de la mise à jour', 'danger')
+	});
+}
+/**
+ * add new document
+ * @param {*} url 
+ * @param {*} body 
+ */
+export function create(url, body) {
+	axios.post(url, body).then((res) => {
+		const { data: { data: { result }}} = res;
+		if (result === 'created') {
+			toaster('Mise à jour effectué', 'success')
+		}
+	}).catch( () => {
+		// console.error(error);
 		toaster('Echec de la mise à jour', 'danger')
 	});
 }
