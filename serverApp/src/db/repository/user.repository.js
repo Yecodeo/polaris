@@ -83,6 +83,5 @@ export function hitsToResponse(array) {
     firstname: hit?._source?.firstname,
     lastname: hit?._source?.lastname,
     profil: hit?._source?.profil,
-    affiliation: hit?._source?.affiliation,
   }));
 }
