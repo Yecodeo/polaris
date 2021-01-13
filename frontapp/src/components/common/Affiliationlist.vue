@@ -6,7 +6,7 @@
 					<div class="media mb-3">
 						<div class="media-content">
 							<p class="title is-5">{{ affiliation.organisation }}</p>
-							<p class="subtitle is-6">{{ affiliation.post }}</p>
+							<p class="subtitle is-6">{{ affiliation.poste }}</p>
 						</div>
 					</div>
 
@@ -14,7 +14,7 @@
 						<p class="subtitle is-6 mb-1">{{ affiliation.equipe }}</p>
 						<p class="subtitle is-6 mb-1">{{ affiliation.annee }}</p>
 						<b-field class="mb-1">
-							<b-tag>{{ affiliation.date.lte }} - {{ affiliation.date.gte }}</b-tag>
+							<b-tag>{{ affiliation.date.lte | dateFormatter }} - {{ affiliation.date.gte | dateFormatter }}</b-tag>
 						</b-field>
 						<span>{{ affiliation.country }}</span>
 					</div>
@@ -26,7 +26,7 @@
 
 <script>
 export default {
-	name: 'Affiliation',
+	name: 'Affiliationlist',
 	props: ['affiliations']
 }
 </script>
