@@ -7,6 +7,7 @@ import cors from 'cors';
 import affiliationRouter from './routes/affiliation.route';
 import userRouter from './routes/user.route';
 import countryRoute from './routes/country.router';
+import organisationRoute from './routes/organisation.route';
 
 const app = express();
 
@@ -31,5 +32,6 @@ app.options('*', cors({
 app.use('/', affiliationRouter);
 app.use('/', userRouter);
 app.use('/', countryRoute);
+app.use('/', organisationRoute);
 
 export default app;

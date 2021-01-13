@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from '../middleware/cors';
 
 import {
   findUser,
@@ -12,9 +11,6 @@ import {
 
 const router = express.Router();
 
-if (process.env.NODE_ENV === 'development') {
-  cors(router);
-}
 
 /**
  * get All User by user id
