@@ -36,8 +36,9 @@
 </template>
 
 <script>
-	import save from '../../helper/save';
+	import {update} from '../../helper/save';
 	import socialChecker from '../../helper/socialChecker';
+	import toaster from '../../helper/toaster';
 
 	export default {
 		name: 'Social',
@@ -63,7 +64,15 @@
 		},
 		methods: {
 			persiste: function (body) {
-				save(this.api_url, body);
+				update(this.api_url, body).then((res) => {
+					const { data: { data: { result }}} = res;
+					if (result === 'updated') {
+						toaster.success();
+					}
+				}).catch( (error) => {
+					console.log(error);
+					toaster.fail();
+				});
 			},
 			/**
 			 * save on values changing
