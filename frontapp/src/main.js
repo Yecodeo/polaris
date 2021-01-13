@@ -7,11 +7,13 @@ import 'buefy/dist/buefy.css'
 import Route from './routes/route';
 import store from './store';
 import capitalize from './helper/capitalize';
+import dateFormatter from './helper/dateFormatter';
 
 Vue.config.productionTip = false
 Vue.use(Buefy);
 Vue.use(VueRouter);
 Vue.filter('capitalize', capitalize);
+Vue.filter('dateFormatter', dateFormatter);
 
 const router = new VueRouter({
   linkActiveClass: 'is-active',
