@@ -24,13 +24,14 @@ export function findInAffiliation(keywork) {
  * find a affiliation by user id
  * @param {user id} id
  */
-export function findByAffiliation(id) {
+export function findByUser(id) {
   return client.search({
     index,
     body: {
+      sort: { _doc: { order: 'desc' } },
       query: {
         match: {
-          owner: id,
+          _user: id,
         },
       },
     },
@@ -79,8 +80,9 @@ export function hitsToResponse(array) {
   return hits.map((hit) => ({
     _user: hit._source?._user,
     organisation: hit?._source?.organisation,
-    post: hit?._source?.post,
+    poste: hit?._source?.poste,
+    equipe: hit?._source?.equipe,
     date: hit?._source?.date,
-    country: hit?._source?.country,
+    pays: hit?._source?.country,
   }));
 }
