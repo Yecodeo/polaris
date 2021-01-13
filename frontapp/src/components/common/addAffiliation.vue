@@ -46,8 +46,15 @@
 					:values="['name']" 
 					label="Pays" 
 					required
-					v-model="affiliation.pays" 
+					v-model="affiliation.country" 
 					/>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column">
+			<b-checkbox v-model="affiliation.current">
+                C'est mon affiliation acctuel
+            </b-checkbox>
 			</div>
 		</div>
 		<div class="columns">
@@ -84,7 +91,8 @@ export default {
 					lte: undefined,
 					gte: undefined
 				},
-				pays: ''
+				country: '',
+				current: false
 			},
 			organisations: ['Énergie, Recherche et Science', 'Économie et Société numériques',
 				'Protection des consommateurs', 'Budget / Santé	'
@@ -98,15 +106,6 @@ export default {
 		this.save_url = `${url}/affiliation/`;
 	},
 	methods: {
-		dateformatter: function(date) {
-			const options = {  
-				year: 'numeric',  
-				month: '2-digit',  
-				day: '2-digit',  
-				timeZone: 'Europe/Paris',
-			}; 
-			return new Intl.DateTimeFormat('fr-FR', options).format(date)
-		},
 		persiste: function(body) {
 			create(this.save_url, body);
 		},
