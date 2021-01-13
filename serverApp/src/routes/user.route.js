@@ -11,7 +11,6 @@ import {
 
 const router = express.Router();
 
-
 /**
  * get All User by user id
  */

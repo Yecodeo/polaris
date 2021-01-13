@@ -10,7 +10,7 @@ const router = express.Router();
 /**
  * get All User by user id
  */
-router.get('/user', (req, res) => {
+router.get('/organisation', (req, res) => {
   findAll(req.query.q).then((response) => {
     res.status(200).json({
       state: 'ok',

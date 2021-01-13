@@ -12,7 +12,7 @@ export function findAll() {
     index,
     body: {
       query: {
-        march_all: {},
+        match_all: {},
       },
     },
   });
