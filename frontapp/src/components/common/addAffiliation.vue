@@ -53,7 +53,7 @@
 		<div class="columns">
 			<div class="column">
 			<b-checkbox v-model="affiliation.current">
-                C'est mon affiliation acctuel
+                C'est mon affiliation actuel
             </b-checkbox>
 			</div>
 		</div>
@@ -63,6 +63,7 @@
 					class="my-4" 
 					type="is-success" 
 					expanded
+					:disabled="toogleEnable()"
 					native-type="submit"
 					>Ajouter </b-button>
 			</div>
@@ -73,6 +74,7 @@
 <script>
 	import Autocomplete from '../common/Autocomplete';
 	import { create } from '../../helper/save';
+	import toaster from '../../helper/toaster';
 
 export default {
 	name: 'addAffiliation',
@@ -107,8 +109,23 @@ export default {
 	},
 	methods: {
 		persiste: function(body) {
-			create(this.save_url, body);
+			create(this.save_url, body).then((res) => {
+				const { data: { data: { result }}} = res;
+				if (result === 'created') {
+					toaster.success()
+					// send envent to parent and close the affiliation
+					this.$emit('toggle');	
+				}
+			}).catch( () => {
+				toaster.fail()
+			});
 		},
+		toogleEnable: function() {
+			if (this.affiliation.organisation && this.affiliation.country) {
+				return false;
+			}
+			return true;
+		}
 	}
 }
 </script>
