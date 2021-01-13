@@ -1,25 +1,33 @@
 <template>
 	<div>
-		<Affiliation 
+		<Affiliationlist 
 			:affiliations="myAffiliations"
 		/>
 	</div>
 </template>
 
 <script>
-	import Affiliation from '../common/Affiliation';
+	import Affiliationlist from '../common/Affiliationlist';
+	import axios from 'axios';
+
 	export default {
 		name: 'General',
 		components: {
-			Affiliation
+			Affiliationlist
 		},
 		data() {
 			return {
 				myAffiliations: '',
 			}
 		},
-		beforeMount() {
-			this.myAffiliations = this.$store.getters.getAffiliation
+		mounted() {
+			const userId = this.$store.getters.getUser.id;
+			this.api_url = `${this.$store.getters.getApiUrl}/affiliation/${userId}`		
+			let self = this;
+			axios.get(`${this.api_url}${this.input}`).then(function (res) {
+				self.myAffiliations = res.data.data;
+				console.log(res.data.data)
+			}).catch(error => console.error(error));
 		}
 	}
 </script>
