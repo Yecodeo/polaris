@@ -21,6 +21,7 @@ export default new Vuex.Store({
   },
   actions: {
     setUser(state, payload) {
+      payload.profil.avatar = `${this.state.api_url}/${payload.profil.avatar}`;
       state.commit('setUser', payload);
     }
   },
