@@ -5,7 +5,13 @@
 				<div class="card-content">
 					<div class="media mb-3">
 						<div class="media-content">
-							<p class="title is-5">{{ affiliation.organisation }}</p>
+							<p class="title is-5">{{ affiliation.organisation }}
+								<b-tag v-if="affiliation.current"
+									type="is-success">
+									A ce jour
+								</b-tag>
+
+							</p>
 							<p class="subtitle is-6">{{ affiliation.poste }}</p>
 						</div>
 					</div>
@@ -13,8 +19,13 @@
 					<div class="content">
 						<p class="subtitle is-6 mb-1">{{ affiliation.equipe }}</p>
 						<p class="subtitle is-6 mb-1">{{ affiliation.annee }}</p>
-						<b-field class="mb-1">
-							<b-tag>{{ affiliation.date.lte | dateFormatter }} - {{ affiliation.date.gte | dateFormatter }}</b-tag>
+						<b-field v-if="affiliation.date.lte && affiliation.date.gte" class="mb-1">
+							<b-tag type="is-success is-light">
+								{{ affiliation.date.lte | dateFormatter }} 
+							</b-tag>
+							<b-tag type="is-success is-light">
+								{{ affiliation.date.gte | dateFormatter }}
+							</b-tag>
 						</b-field>
 						<span>{{ affiliation.country }}</span>
 					</div>
@@ -25,6 +36,7 @@
 </template>
 
 <script>
+
 export default {
 	name: 'Affiliationlist',
 	props: ['affiliations']
