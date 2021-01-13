@@ -13,8 +13,7 @@ export default function user(client) {
     body: {
       properties: {
         organisation: { type: 'text' },
-        post: { type: 'text' },
-        auteurs: { type: 'text' },
+        poste: { type: 'text' },
         equipe: { type: 'text' },
         date: {
           type: 'nested',
