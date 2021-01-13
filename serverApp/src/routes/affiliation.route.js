@@ -1,7 +1,7 @@
 import express from 'express';
 
 import {
-  findByAffiliation,
+  findByUser,
   findInAffiliation,
   addAffiliation,
   updateAffiliation,
@@ -30,7 +30,7 @@ router.get('/affiliation/search', (req, res) => {
  * get All affiliation by user id
  */
 router.get('/affiliation/:id', (req, res) => {
-  findByAffiliation(req.params.id).then((response) => {
+  findByUser(req.params.id).then((response) => {
     res.status(200).json({
       state: 'ok',
       data: hitsToResponse(response),
@@ -65,6 +65,7 @@ router.post('/affiliation', (req, res) => {
  */
 router.put('/affiliation/:id', (req, res) => {
   updateAffiliation(req.params.id, req.body).then((response) => {
+    console.log(response);
     res.status(200).json({
       state: 'ok',
       data: {
@@ -72,10 +73,12 @@ router.put('/affiliation/:id', (req, res) => {
         result: response.body.result,
       },
     });
-  }).catch((error) => res.status(500).json({
-    state: 'error',
-    error,
-  }));
+  }).catch((error) => {
+    res.status(500).json({
+      state: 'error',
+      error,
+    });
+  });
 });
 
 /**
