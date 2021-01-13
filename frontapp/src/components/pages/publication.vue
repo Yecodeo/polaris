@@ -22,21 +22,20 @@
 			</div>
 		</div>
 		<div class="column is-12">
-		<Affiliation 
-			:affiliations="result"
-		/>
+
 		</div>
 	</section>
 </template>
 
 <script>
 	import axios from 'axios';
-	import Affiliation from '../common/Affiliation';
+
 
 	export default {
 		name: 'Publication',
 		components: {
-			Affiliation
+			
+			
 		},
 		data: function () {
 			return {
@@ -52,8 +51,7 @@
 
 		},
 		methods: {
-			getPublication: function (event) {
-				event.preventDefault();
+			getPublication: function () {
 				let self = this;
 				axios.get(`${this.api_url}${this.input}`).then(function (res) {
 					self.result = res.data.data;

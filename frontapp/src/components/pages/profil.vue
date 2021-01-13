@@ -26,7 +26,7 @@
 					<h6 class="title is-6">Social Ids</h6>
 					<Social 
 						:socials="user.profil.socials" 
-						:api_url="updateUser"
+						:api_url="updateUserApi"
 					/>
 
 					<b-button class="my-4" v-on:click="toggle" type="is-primary is-light">Ajouté une affiliation
@@ -37,7 +37,9 @@
 						class="delete my-4 is-pulled-right has-background-danger">
 					</a>
 					<template v-if="showAffeliation">
-						<AddAffiliation @toggle="toggle()" />
+						<AddAffiliation 
+							@toggle="toggle()" 
+						/>
 					</template>
 
 				</div>
@@ -67,7 +69,7 @@
 		},
 		data() {
 			return {
-				updateUser: '',
+				updateUserApi: '',
 				user: '',
 				showAffeliation: true
 			}
@@ -76,11 +78,11 @@
 			this.user = this.$store.getters.getUser;
 		},
 		mounted() {
-			this.updateUser = `${this.$store.getters.getApiUrl}/user/${this.user.id}`
+			this.updateUserApi = `${this.$store.getters.getApiUrl}/user/${this.user.id}`
 		},
 		methods: {
 			persiste: function(body) {
-				update(this.updateUser, body).then((res) => {
+				update(this.updateUserApi, body).then((res) => {
 					const { data: { data: { result }}} = res;
 					if (result === 'updated') {
 						toaster.success();
@@ -93,9 +95,7 @@
 			toggle: function () {
 				this.showAffeliation = !this.showAffeliation;
 			},
-
 		}
-
 	}
 </script>
 

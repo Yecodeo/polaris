@@ -6,8 +6,8 @@
 				placeholder="Selectionnez une organisation" 
 				required 
 				expanded>
-				<option v-for="(org, key) in organisations" :value="org" :key="key">
-					{{ org }}
+				<option v-for="(org, key) in organisations" :value="org.name" :key="key">
+					{{ org.name }}
 				</option>
 			</b-select>
 		</b-field>
@@ -75,6 +75,7 @@
 	import Autocomplete from '../common/Autocomplete';
 	import { create } from '../../helper/save';
 	import toaster from '../../helper/toaster';
+import axios from 'axios';
 
 export default {
 	name: 'addAffiliation',
@@ -96,9 +97,7 @@ export default {
 				country: '',
 				current: false
 			},
-			organisations: ['Énergie, Recherche et Science', 'Économie et Société numériques',
-				'Protection des consommateurs', 'Budget / Santé	'
-			],
+			organisations: [],
 		}
 	},
 	mounted() {
@@ -106,6 +105,9 @@ export default {
 		this.affiliation._user = this.$store.getters.getUser.id;
 		this.api_url = `${url}/country/search?q=`;
 		this.save_url = `${url}/affiliation/`;
+		axios.get(`${url}/organisation/`).then(org => {
+			this.organisations = org.data.data;
+		});
 	},
 	methods: {
 		persiste: function(body) {
