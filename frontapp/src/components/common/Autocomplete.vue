@@ -1,6 +1,12 @@
 <template>
 	<b-field class="suggests-parents" :label="label">
-		<b-input autocomplete="off" required @input="fetch" v-model="input"></b-input>
+		<b-input 
+			autocomplete="off" 
+			required 
+			@input="fetch" 
+			v-model="input"
+			v-on:input="updateValue()"
+		></b-input>
 		<div v-if="suggests && input.length >= 3" class="suggests">
 			<a class="suggest is-link"
 				v-for="(suggest, key) in suggests" 
@@ -26,7 +32,7 @@
 		data: function() {
 			return {
 				suggests: '',
-				input: null,
+				input: null
 			}
 		},
 		props: [ 'api', 'label', 'values', 'dispatch', 'required' ],
@@ -46,7 +52,13 @@
 				const label = this.values.map(el => selected[el]).join(' ');
 				this.input = label;
 				this.suggests = '';
-				this.$store.dispatch(this.dispatch, selected)
+				this.$emit('input', this.input)
+				if (this.dispatch) {
+					this.$store.dispatch(this.dispatch, selected)
+				}
+			},
+			updateValue: function () {
+				this.$emit('input', this.input)
 			}
 		}
 	}
