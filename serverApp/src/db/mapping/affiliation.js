@@ -22,6 +22,7 @@ export default function user(client) {
             gte: { type: 'date' },
           },
         },
+        current: { type: 'boolean'},
         country: { type: 'text' },
       },
     },

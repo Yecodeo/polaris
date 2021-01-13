@@ -83,6 +83,7 @@ export function hitsToResponse(array) {
     poste: hit?._source?.poste,
     equipe: hit?._source?.equipe,
     date: hit?._source?.date,
-    pays: hit?._source?.country,
+    country: hit?._source?.country,
+    current: hit?._source?.current,
   }));
 }
