@@ -26,7 +26,6 @@
 			let self = this;
 			axios.get(`${this.api_url}${this.input}`).then(function (res) {
 				self.myAffiliations = res.data.data;
-				console.log(res.data.data)
 			}).catch(error => console.error(error));
 		}
 	}
