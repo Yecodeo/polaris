@@ -68,20 +68,7 @@ export default {
     Orcid
   },
   beforeMount() {
-    const {
-      prefix,
-      firstname,
-      lastname,
-      aboutme,
-      profil
-    } = this.$store.getters.getUser;
-    this.data = {
-      prefix,
-      firstname,
-      lastname,
-      aboutme,
-      profil
-    }
+    (this.data) = this.$store.getters.getUser;
   }
 }
 </script>
