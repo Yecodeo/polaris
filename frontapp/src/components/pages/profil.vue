@@ -5,7 +5,7 @@
 				<div class="column is-two-fifths mt-4">
 					<b-field label="Prénom">
 						<b-input 
-							v-model="user.firstname" 
+							v-model="user.firstname"
 							@blur="persiste({firstname: user.firstname})">
 						</b-input>
 					</b-field>
@@ -37,7 +37,7 @@
 						class="delete my-4 is-pulled-right has-background-danger">
 					</a>
 					<template v-if="showAffeliation">
-						<AddAffiliation />
+						<AddAffiliation @toggle="toggle()" />
 					</template>
 
 				</div>
@@ -56,6 +56,7 @@
 	import Social from '../common/Social';
 	import {update} from '../../helper/save';
 	import AddAffiliation from '../common/addAffiliation'
+	import toaster from '../../helper/toaster';
 
 	export default {
 		name: 'Profil',
@@ -66,26 +67,9 @@
 		},
 		data() {
 			return {
-				api_url: '',
 				updateUser: '',
 				user: '',
-				dates: {
-					starts: null,
-					ends: null
-				},
-				showAffeliation: true,
-				affiliation: {
-					organisation: '',
-					equipe: '',
-					date: {
-						lte: '',
-						gte: ''
-					},
-					pays: ''
-				},
-				organisations: ['Énergie, Recherche et Science', 'Économie et Société numériques',
-					'Protection des consommateurs', 'Budget / Santé	'
-				],
+				showAffeliation: true
 			}
 		},
 		beforeMount() {
@@ -96,7 +80,15 @@
 		},
 		methods: {
 			persiste: function(body) {
-				update(this.updateUser, body);
+				update(this.updateUser, body).then((res) => {
+					const { data: { data: { result }}} = res;
+					if (result === 'updated') {
+						toaster.success();
+					}
+				}).catch( (error) => {
+					console.log(error);
+					toaster.fail();
+				});
 			},
 			toggle: function () {
 				this.showAffeliation = !this.showAffeliation;
