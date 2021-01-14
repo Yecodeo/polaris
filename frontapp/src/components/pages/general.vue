@@ -21,10 +21,10 @@
 			}
 		},
 		mounted() {
-			const userId = this.$store.getters.getUser.id;
-			this.api_url = `${this.$store.getters.getApiUrl}/affiliation/${userId}`		
+			const {id} = this.$store.getters.getUser;
+			this.api_url = `${this.$store.getters.getApiUrl}/affiliation/${id}`		
 			let self = this;
-			axios.get(`${this.api_url}${this.input}`).then(function (res) {
+			axios.get(`${this.api_url}`).then(function (res) {
 				self.myAffiliations = res.data.data;
 			}).catch(error => console.error(error));
 		}
