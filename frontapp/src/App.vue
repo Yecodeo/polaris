@@ -1,7 +1,7 @@
 <template>
   <div class="container is-fluid">
       <Header-app> </Header-app>
-        <section v-if="$store.getters.getUser" :key="$store.getters.getUser.id" class="main-content columns is-fullheight">
+        <section v-if="$store.getters.getUser.id" :key="$store.getters.getUser.id" class="main-content columns is-fullheight">
           <Menu-app></Menu-app>
           <Core-app></Core-app>
         </section>
@@ -22,12 +22,6 @@ export default {
     'Menu-app': Menu,
     'Core-app': Body,
   },
-  mounted(){
-      this.$store.watch(this.$store.getters.getUser, () => {
-        console.log('changed')
-      })
-  }
-
 }
 </script>
 

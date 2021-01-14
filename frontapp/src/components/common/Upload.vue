@@ -1,25 +1,17 @@
 <template>
 	<section>
-		<b-field>
-			<b-upload v-model="dropFiles" expanded drag-drop>
-				<section class="section">
-					<div class="content has-text-centered">
-						<p>
-							<b-icon icon="upload" size="is-large">
-							</b-icon>
-						</p>
-						<p>Déposer votre avatar ici</p>
-					</div>
-				</section>
-			</b-upload>
-		</b-field>
-
-		<div class="tags">
-			<span v-for="(file, index) in dropFiles" :key="index" class="tag is-primary">
-				{{file.name}}
-				<button class="delete is-small" type="button" @click="deleteDropFile(index)">
-				</button>
-			</span>
+		<div class="file has-name is-boxed expanded">
+			<label class="file-label">
+				<input class="file-input" type="file" name="avatar" @change="notify($event)">
+				<span class="file-cta">
+					<span class="file-label">
+						Uploader un avatar
+					</span>
+				</span>
+				<span class="file-name">
+					{{name}}
+				</span>
+			</label>
 		</div>
 	</section>
 </template>
@@ -27,14 +19,16 @@
 <script>
 	export default {
 		name: 'Upload',
+		props: ['api_url'],
 		data() {
 			return {
-				dropFiles: []
+				name: ''
 			}
 		},
 		methods: {
-			deleteDropFile(index) {
-				this.dropFiles.splice(index, 1)
+			notify: function(e) {
+				const file = e.target.files[0];
+				this.$emit('notify', file);
 			}
 		}
 	}

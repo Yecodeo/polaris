@@ -4,8 +4,9 @@
       <li>
         <b-image
             :src="data.profil.avatar"
-            alt="A random image"
+            :src-fallback="$store.getters.getImagePlaceHolder"
             ratio="6by4"
+
         />
       </li>
       <li>
@@ -57,7 +58,7 @@ export default {
         firstname: '',
         lastname: '',
         aboutme: '',
-        profil: []
+        profil: {}
       }
     }
   },
@@ -69,10 +70,14 @@ export default {
   },
   beforeMount() {
     (this.data) = this.$store.getters.getUser;
+    this.$store.dispatch('setImagePlaceHolder');
   }
 }
 </script>
 
 <style>
-
+.b-image-wrapper > img.placeholder {
+    -webkit-filter: blur(0px)!important;
+    filter: blur(0px)!important;
+}
 </style>

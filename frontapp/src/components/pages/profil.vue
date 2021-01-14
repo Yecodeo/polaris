@@ -45,9 +45,11 @@
 				</div>
 			</div>
 			<div class="columns">
-				<div class="column is-four-fifths">
-					<Upload />
-				</div>
+				<form enctype="multipart/form-data" novalidate >
+					<div class="column is-four-fifths">
+						<Upload @notify="persisteFile($event)" :api_url="updateUserApi"/>
+					</div>
+				</form>
 			</div>
 		</div>
 	</section>
@@ -56,7 +58,7 @@
 <script>
 	import Upload from '../common/Upload';
 	import Social from '../common/Social';
-	import {update} from '../../helper/save';
+	import { update, addFile } from '../../helper/save';
 	import AddAffiliation from '../common/addAffiliation'
 	import toaster from '../../helper/toaster';
 
@@ -71,7 +73,7 @@
 			return {
 				updateUserApi: '',
 				user: '',
-				showAffeliation: true
+				showAffeliation: false
 			}
 		},
 		beforeMount() {
@@ -83,6 +85,20 @@
 		methods: {
 			persiste: function(body) {
 				update(this.updateUserApi, body).then((res) => {
+					const { data: { data: { result }}} = res;
+					if (result === 'updated') {
+						toaster.success();
+					}
+				}).catch( (error) => {
+					console.log(error);
+					toaster.fail();
+				});
+			},
+			persisteFile: function(body) {
+				const formData = new FormData();
+				formData.append('avatar', body, body.name);
+
+				addFile(this.updateUserApi, formData).then((res) => {
 					const { data: { data: { result }}} = res;
 					if (result === 'updated') {
 						toaster.success();
