@@ -54,7 +54,6 @@ export function addUser(body) {
  * @param {Object} body
  */
 export function updateUser(id, body) {
-  console.log(id, body);
   return client.update({
     index,
     id,

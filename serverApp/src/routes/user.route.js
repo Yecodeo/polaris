@@ -1,5 +1,5 @@
 import express from 'express';
-import updateFile from '../helper/updateFile';
+import update from '../helper/updateFile';
 
 import {
   findUser,
@@ -63,7 +63,11 @@ router.post('/user', (req, res) => {
 /**
  * update a User
  */
-router.put('/user/:id', updateFile().single('avatar'), (req, res) => {
+router.post('/user/:id', update.single('avatar'), (req, res) => {
+  if (req.body.filehash) {
+    req.body = { profil: { avatar: req.body.filehash } };
+  }
+
   updateUser(req.params.id, req.body).then((response) => {
     res.status(200).json({
       state: 'ok',
@@ -72,10 +76,13 @@ router.put('/user/:id', updateFile().single('avatar'), (req, res) => {
         result: response.body.result,
       },
     });
-  }).catch((error) => res.status(500).json({
-    state: 'error',
-    error,
-  }));
+  }).catch((error) => {
+    console.error(error);
+    res.status(500).json({
+      state: 'error',
+      error,
+    });
+  });
 });
 
 /**

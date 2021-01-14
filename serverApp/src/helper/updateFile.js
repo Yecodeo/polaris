@@ -10,8 +10,10 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, '../avatars/'));
   },
   filename: (req, file, cb) => {
+    console.log(req.body);
     const ext = `.${file.originalname.split('.').pop()}`;
     const filename = crypto.createHash('md5').update(Date.now() + file.originalname).digest('hex') + ext;
+    req.body.filehash = filename;
     cb(null, filename);
   },
 });
@@ -22,16 +24,15 @@ const storage = multer.diskStorage({
  * @param {*} cb
  */
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+  const regex = /(jpg|gif|jpeg|png|webp|x-png|pjpeg)$/;
+  if (regex.test(file.mimetype)) {
     cb(null, true);
   } else {
     cb(null, false);
   }
 };
 
-export default function updateFile() {
-  return multer({
-    storage,
-    fileFilter,
-  });
-}
+export default multer({
+  storage,
+  fileFilter,
+});
