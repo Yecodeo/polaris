@@ -4,52 +4,36 @@
 			<div class="columns">
 				<div class="column is-half mt-4">
 					<b-field label="Prénom">
-						<b-input 
-							v-model="user.firstname"
-							@blur="persiste({firstname: user.firstname})">
+						<b-input v-model="user.firstname" @blur="persiste({firstname: user.firstname})">
 						</b-input>
 					</b-field>
 					<b-field label="Nom">
-						<b-input 
-							v-model="user.lastname" 
-							@blur="persiste({lastname: user.lastname})">
+						<b-input v-model="user.lastname" @blur="persiste({lastname: user.lastname})">
 						</b-input>
 					</b-field>
 					<b-field label="About me">
-						<b-input 
-							v-model="user.profil.aboutme" 
-							type="textarea" 
-							maxlength="400"
+						<b-input v-model="user.profil.aboutme" type="textarea" maxlength="400"
 							@blur="persiste({profil: { aboutme:  user.profil.aboutme }})">
 						</b-input>
 					</b-field>
 					<h6 class="title is-6">Social Ids</h6>
-					<Social 
-						:socials="user.profil.socials" 
-						:api_url="updateUserApi"
-					/>
-
+					<Social :socials="user.profil.socials" :api_url="updateUserApi" />
 					<b-button class="my-4" v-on:click="toggle" type="is-primary is-light">Ajouté une affiliation
 					</b-button>
-					<a 
-						v-on:click="toggle" 
-						v-if="showAffeliation" 
+					<a v-on:click="toggle" v-if="showAffeliation"
 						class="delete my-4 is-pulled-right has-background-danger">
 					</a>
 					<template v-if="showAffeliation">
-						<AddAffiliation 
-							@toggle="toggle()" 
-						/>
+						<AddAffiliation @toggle="toggle()" />
 					</template>
-
 				</div>
 			</div>
 			<div class="columns">
-					<div class="column is-half">
-				<form enctype="multipart/form-data" novalidate >
-						<Upload @notify="persisteFile($event)" :api_url="updateUserApi"/>
-				</form>
-					</div>
+				<div class="column is-half">
+					<form enctype="multipart/form-data" novalidate>
+						<Upload @notify="persisteFile($event)" :api_url="updateUserApi" />
+					</form>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -58,7 +42,10 @@
 <script>
 	import Upload from '../common/Upload';
 	import Social from '../common/Social';
-	import { update, addFile } from '../../helper/save';
+	import {
+		update,
+		addFile
+	} from '../../helper/save';
 	import AddAffiliation from '../common/addAffiliation'
 	import toaster from '../../helper/toaster';
 
@@ -83,38 +70,50 @@
 			this.updateUserApi = `${this.$store.getters.getApiUrl}/user/${this.user.id}`
 		},
 		methods: {
-			persiste: function(body) {
+			persiste: function (body) {
 				update(this.updateUserApi, body).then((res) => {
-					const { data: { data: { result }}} = res;
+					const {
+						data: {
+							data: {
+								result
+							}
+						}
+					} = res;
 					if (result === 'updated') {
 						toaster.success();
 					}
-				}).catch( (error) => {
+				}).catch((error) => {
 					console.log(error);
 					toaster.fail();
 				});
 			},
-			persisteFile: function(body) {
+			persisteFile: function (body) {
+				// get data ready to send
 				const formData = new FormData();
 				formData.append('avatar', body, body.name);
-
+				// save data
 				addFile(this.updateUserApi, formData).then((res) => {
-					const { data: { data: { result }}} = res;
+					const {
+						data: {
+							data: {
+								result
+							}
+						}
+					} = res;
 					if (result === 'updated') {
 						toaster.success();
 					}
-				}).catch( (error) => {
+				}).catch((error) => {
 					console.log(error);
 					toaster.fail();
 				});
 			},
+			/**
+			 * toggle affectation component
+			 */
 			toggle: function () {
 				this.showAffeliation = !this.showAffeliation;
 			},
 		}
 	}
 </script>
-
-<style>
-
-</style>

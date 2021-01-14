@@ -1,5 +1,5 @@
 /**
- * Foramte date to local format
+ * filter to foramte date to local format
  * @param {*} date 
  */
 export default function (date) {

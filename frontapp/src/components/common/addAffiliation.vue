@@ -42,7 +42,7 @@
 		</div>
 		<div class="columns">
 			<div class="column is-full">
-				<Autocomplete :api="api_url" 
+				<Autocomplete :api="searchCountry" 
 					:values="['name']" 
 					label="Pays" 
 					required
@@ -84,7 +84,7 @@ export default {
 	},
 	data() {
 		return {
-			api_url: '',
+			searchCountry: '',
 			affiliation: {
 				_user: '',
 				organisation: '',
@@ -101,17 +101,27 @@ export default {
 		}
 	},
 	mounted() {
+		/**
+		 * setup api urls
+		 */
 		const url = this.$store.getters.getApiUrl;
 		this.affiliation._user = this.$store.getters.getUser.id;
-		this.api_url = `${url}/country/search?q=`;
-		this.save_url = `${url}/affiliation/`;
+		this.searchCountry = `${url}/country/search?q=`;
+		this.saveAffiliation = `${url}/affiliation/`;
+
+		/**
+		 * Get list of organisation
+		 */
 		axios.get(`${url}/organisation/`).then(org => {
 			this.organisations = org.data.data;
 		});
 	},
 	methods: {
+		/**
+		 * Create a new Affiliation
+		 */
 		persiste: function(body) {
-			create(this.save_url, body).then((res) => {
+			create(this.saveAffiliation, body).then((res) => {
 				const { data: { data: { result }}} = res;
 				if (result === 'created') {
 					toaster.success()
@@ -122,6 +132,9 @@ export default {
 				toaster.fail()
 			});
 		},
+		/**
+		 * Enable button save or not
+		 */
 		toogleEnable: function() {
 			if (this.affiliation.organisation && this.affiliation.country) {
 				return false;
@@ -131,7 +144,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-
-</style>

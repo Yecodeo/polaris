@@ -15,7 +15,3 @@
 		name: 'Orcid'
 	}
 </script>
-
-<style>
-
-</style>

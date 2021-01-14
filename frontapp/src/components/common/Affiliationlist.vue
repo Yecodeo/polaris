@@ -6,7 +6,9 @@
 					<div class="card-content">
 						<div class="media mb-1">
 							<div class="media-content">
-								<b-tag class="is-size-7 is-pulled-right is-primary is-light is-size-7-mobile" v-if="affiliation.current"
+								<b-tag 
+									class="is-size-7 is-pulled-right is-primary is-light is-size-7-mobile" 
+									v-if="affiliation.current"
 									type="is-success ">
 									A ce jour
 								</b-tag>
@@ -30,7 +32,6 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</template>
 	</div>
@@ -48,7 +49,6 @@ export default {
 	.b-rounded {
 		border-radius: 0.5rem 0.5rem 0rem 0rem !important;
 	}
-
 	.boxed {
 		border: 1px solid #c1c1c1;
 	}

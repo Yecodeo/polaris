@@ -28,12 +28,11 @@
 <script>
   export default {
     name: 'Body',
-
   }
 </script>
 <style>
-li .is-active {
-    background-color: #7957d5!important;
-    color: white!important;
-}
+  li .is-active {
+      background-color: #7957d5!important;
+      color: white!important;
+  }
 </style>

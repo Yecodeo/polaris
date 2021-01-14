@@ -31,11 +31,10 @@ export default {
     }
   },
   mounted: function() {
+    /**
+     * setup url for autocomplete component
+     */
     this.api_url = `${this.$store.getters.getApiUrl}/user/search?q=`
   }
 }
 </script>
-
-<style scoped>
-
-</style>

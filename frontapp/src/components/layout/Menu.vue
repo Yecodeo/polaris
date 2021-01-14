@@ -68,15 +68,21 @@ export default {
     Orcid
   },
   beforeMount() {
+    /**
+     * destructing user object to data
+     */
     (this.data) = this.$store.getters.getUser;
+    /**
+     * dispatch action to make avalaible the image placeholder
+     */
     this.$store.dispatch('setImagePlaceHolder');
   }
 }
 </script>
 
 <style>
-.b-image-wrapper > img.placeholder {
-    -webkit-filter: blur(0px)!important;
-    filter: blur(0px)!important;
-}
+  .b-image-wrapper > img.placeholder {
+      -webkit-filter: blur(0px)!important;
+      filter: blur(0px)!important;
+  }
 </style>

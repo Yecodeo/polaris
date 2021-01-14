@@ -12,7 +12,6 @@
 						@change="inputsHandler(media.url, media.name)"
 						v-model="media.name" 
 						placeholder="selectionnez un media">
-					>
 						<option v-for="(option, key) in listsocials" :value="option" :key="key">
 							{{ option }}
 						</option>
@@ -50,11 +49,11 @@
 		props: ['socials', 'api_url'],
 		watch: {
 			/**
-			 * save one the social list change and it is filled
+			 * save when social's list change and filled
 			 */
 			socials: function () {
 				if (socialChecker(this.socials)) {
-					this.persiste({
+					this.save({
 						profil: {
 							socials: this.socials
 						}
@@ -63,7 +62,10 @@
 			}
 		},
 		methods: {
-			persiste: function (body) {
+			/**
+			 * update given field
+			 */
+			save: function (body) {
 				update(this.api_url, body).then((res) => {
 					const { data: { data: { result }}} = res;
 					if (result === 'updated') {
@@ -79,26 +81,28 @@
 			 */
 			inputsHandler: function(input, select) {
 				if(input && select) {
-					this.persiste({
+					this.save({
 						profil: {
 							socials: this.socials
 						}
 					})
 				}
 			},
+			/**
+			 * add new social field
+			 */
 			addField: function () {
 				this.socials.push({
 					name: '',
 					url: ''
 				});
 			},
+			/**
+			 * remove click social field
+			 */
 			removeField: function (el) {
 				this.socials.splice(el, 1);
 			}
 		}
 	}
 </script>
-
-<style>
-
-</style>

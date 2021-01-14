@@ -5,7 +5,7 @@
 				<input class="file-input" type="file" name="avatar" @change="notify($event)">
 				<span class="file-cta">
 					<span class="file-label">
-						Uploader un avatar
+						Changer un avatar
 					</span>
 				</span>
 			</label>
@@ -23,6 +23,9 @@
 			}
 		},
 		methods: {
+			/**
+			 * send back to parent an event with files param
+			 */
 			notify: function(e) {
 				const file = e.target.files[0];
 				this.$emit('notify', file);
@@ -32,8 +35,8 @@
 </script>
 
 <style scoped>
-.file.is-boxed .file-label {
-    width: 100%;
-	text-align: center;
-}
+	.file.is-boxed .file-label {
+		width: 100%;
+		text-align: center;
+	}
 </style>

@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 /**
  * push modification to elastic search
  * @param {*} index 
@@ -23,10 +22,9 @@ export function create(url, body) {
  * @param {*} body 
  */
 export function addFile(url, body) {
-	console.log(body, url)
 	return axios.put(url, body, {
-			headers: {
-				"Content-Type": "multipart/form-data"
-			}
-		})
-	}
+		headers: {
+			"Content-Type": "multipart/form-data"
+		}
+	});
+}

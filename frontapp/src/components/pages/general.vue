@@ -21,16 +21,15 @@
 			}
 		},
 		mounted() {
-			const {id} = this.$store.getters.getUser;
-			this.api_url = `${this.$store.getters.getApiUrl}/affiliation/${id}`		
-			let self = this;
-			axios.get(`${this.api_url}`).then(function (res) {
-				self.myAffiliations = res.data.data;
+			const {
+				id
+			} = this.$store.getters.getUser;
+
+			this.api_url = `${this.$store.getters.getApiUrl}/affiliation/${id}`;
+
+			axios.get(`${this.api_url}`).then((res) => {
+				this.myAffiliations = res.data.data;
 			}).catch(error => console.error(error));
 		}
 	}
 </script>
-
-<style>
-
-</style>
