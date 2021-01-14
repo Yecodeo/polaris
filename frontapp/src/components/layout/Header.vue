@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="columns is-mobile is-centered mt-1 mb-0">
+    <div class="columns is-centered mt-1 mb-0">
       <div class="column is-half">
 					<Autocomplete 
             :api="api_url" 

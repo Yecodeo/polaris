@@ -24,7 +24,7 @@ export function create(url, body) {
  */
 export function addFile(url, body) {
 	console.log(body, url)
-	return axios.post(url, body, {
+	return axios.put(url, body, {
 			headers: {
 				"Content-Type": "multipart/form-data"
 			}

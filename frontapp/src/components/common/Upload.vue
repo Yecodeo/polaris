@@ -1,15 +1,12 @@
 <template>
 	<section>
-		<div class="file has-name is-boxed expanded">
+		<div class="file is-boxed expanded">
 			<label class="file-label">
 				<input class="file-input" type="file" name="avatar" @change="notify($event)">
 				<span class="file-cta">
 					<span class="file-label">
 						Uploader un avatar
 					</span>
-				</span>
-				<span class="file-name">
-					{{name}}
 				</span>
 			</label>
 		</div>
@@ -33,3 +30,10 @@
 		}
 	}
 </script>
+
+<style scoped>
+.file.is-boxed .file-label {
+    width: 100%;
+	text-align: center;
+}
+</style>

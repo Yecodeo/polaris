@@ -1,22 +1,21 @@
 <template>
-  <aside class="column is-2 is-narrow-mobile is-fullheight section mt-3">
-    <ul class="menu-list">
-      <li>
+  <aside class="column is-2 is-fullheight px-0 mr-5 ">
+    <div class="menu-list">
+      <div>
         <b-image
             :src="data.profil.avatar"
             :src-fallback="$store.getters.getImagePlaceHolder"
-            ratio="6by4"
-
+            ratio="is-3by2"
         />
-      </li>
-      <li>
-        <div class="identity mt-1">
-          <span class="is-capitalized has-text-weight-semibold">{{ data.prefix }} </span>
-          <span class="is-capitalized has-text-weight-semibold">{{ data.firstname}} </span>
-          <span class="is-capitalized has-text-weight-semibold">{{ data.lastname }}</span>  
+      </div>
+      <div>
+        <div class="identity mt-1 has-text-centered-mobile">
+          <span class="has-text-weight-semibold">{{ data.prefix | capitalize }} </span>
+          <span class="has-text-weight-semibold">{{ data.firstname | capitalize}} </span>
+          <span class="has-text-weight-semibold">{{ data.lastname | capitalize}} </span>  
         </div>
-      </li>
-      <li>
+      </div>
+      <div>
         <div class="aboutme mt-3">
           <h6 class="title is-6">About me</h6>
           <p class="subtitle is-6 has-text-justified">
@@ -24,12 +23,12 @@
           </p>
         </div>
 
-      </li>
-      <li>
+      </div>
+      <div>
         <h6 class="title is-6 mt-3 mb-2">
           My social life
         </h6>
-        <div class="level">
+        <div class="level is-mobile">
           <div class="level-left">
             <template v-for="(social, key) in data.profil.socials">
               <a :key="key" :href="social.link" class="p-0 m-0">
@@ -38,8 +37,8 @@
             </template>
           </div>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </aside>  
 </template>
 
@@ -47,7 +46,7 @@
 import Facebook from 'vue-material-design-icons/Facebook';
 import Linkedin from 'vue-material-design-icons/Linkedin';
 import Twitter from 'vue-material-design-icons/Twitter';
-import Orcid from '../common/icons/Orcid';
+import Orcid from '../../assets/icons/Orcid';
 
 export default {
   name: 'Menu',

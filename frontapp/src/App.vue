@@ -3,7 +3,7 @@
       <Header-app> </Header-app>
         <section v-if="$store.getters.getUser.id" :key="$store.getters.getUser.id" class="main-content columns is-fullheight">
           <Menu-app></Menu-app>
-          <Core-app></Core-app>
+          <Body-app></Body-app>
         </section>
   </div>
 
@@ -20,7 +20,7 @@ export default {
   components: {
     'Header-app': Header,
     'Menu-app': Menu,
-    'Core-app': Body,
+    'Body-app': Body,
   },
 }
 </script>

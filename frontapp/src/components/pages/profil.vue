@@ -2,7 +2,7 @@
 	<section>
 		<div class="form">
 			<div class="columns">
-				<div class="column is-two-fifths mt-4">
+				<div class="column is-half mt-4">
 					<b-field label="Prénom">
 						<b-input 
 							v-model="user.firstname"
@@ -45,11 +45,11 @@
 				</div>
 			</div>
 			<div class="columns">
+					<div class="column is-half">
 				<form enctype="multipart/form-data" novalidate >
-					<div class="column is-four-fifths">
 						<Upload @notify="persisteFile($event)" :api_url="updateUserApi"/>
-					</div>
 				</form>
+					</div>
 			</div>
 		</div>
 	</section>

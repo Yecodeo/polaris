@@ -3,6 +3,7 @@
 		<b-input 
 			autocomplete="off" 
 			required 
+			expanded
 			@input="fetch" 
 			v-model="input"
 			v-on:input="updateValue()"

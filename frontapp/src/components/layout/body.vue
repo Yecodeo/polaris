@@ -1,17 +1,17 @@
 <template>
-  <div class="container column is-10">
-    <div class="section is-fullheight pt-6">
-      <section class="boxed is-fullheight px-2">
+  <div class="column p-0">
+    <div class="my-5 mx-2">
+      <section class="boxed is-fullheight">
         <div class="header-content">
           <nav class="tabs is-centered is-boxed">
             <ul>
-              <li class="b-rounded has-background-light is-active">
+              <li class="b-rounded has-background-light is-active is-size-7-mobile">
                 <router-link to="/" exact>Vue général</router-link>
               </li>
-              <li class="b-rounded has-background-light is-active">
+              <li class="b-rounded has-background-light is-active is-size-7-mobile">
                 <router-link to="/profil" exact>My profil</router-link>
               </li>
-              <li class="b-rounded has-background-light is-active">
+              <li class="b-rounded has-background-light is-active ">
                 <router-link to="/publication" exact>Mes publication</router-link>
               </li>
             </ul>
