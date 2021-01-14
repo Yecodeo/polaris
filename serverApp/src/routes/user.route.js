@@ -1,4 +1,5 @@
 import express from 'express';
+import updateFile from '../helper/updateFile';
 
 import {
   findUser,
@@ -62,7 +63,7 @@ router.post('/user', (req, res) => {
 /**
  * update a User
  */
-router.put('/user/:id', (req, res) => {
+router.put('/user/:id', updateFile().single('avatar'), (req, res) => {
   updateUser(req.params.id, req.body).then((response) => {
     res.status(200).json({
       state: 'ok',
