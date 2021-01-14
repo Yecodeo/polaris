@@ -1,7 +1,7 @@
-import userIndex from './mapping/user';
-import countryIndex from './mapping/country';
-import affiliationIndex from './mapping/affiliation';
-
+import userMapping from './mapping/user';
+import countryMapping from './mapping/country';
+import affiliationMapping from './mapping/affiliation';
+import publicationMapping from './mapping/publication';
 /**
  * load index et create them if not exist
  * @param {*} client
@@ -11,15 +11,19 @@ export default function checkIndices(client) {
   const indicies = [
     {
       index: 'user',
-      mapping: userIndex,
+      mapping: userMapping,
+    },
+    {
+      index: 'publication',
+      mapping: publicationMapping,
     },
     {
       index: 'country',
-      mapping: countryIndex,
+      mapping: countryMapping,
     },
     {
       index: 'affiliation',
-      mapping: affiliationIndex,
+      mapping: affiliationMapping,
     },
 
   ];

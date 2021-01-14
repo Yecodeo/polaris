@@ -74,8 +74,8 @@ export function deleteUser(id) {
   });
 }
 
-export function hitsToResponse(array) {
-  const { body: { hits: { hits } } } = array;
+export function hitsToResponse(object) {
+  const { body: { hits: { hits } } } = object;
   return hits.map((hit) => ({
     id: hit._id,
     prefix: hit?._source?.prefix,

@@ -2,6 +2,7 @@ import axios from 'axios';
 import country from './data/countries.json';
 import user from './data/users.json';
 import organisation from './data/organisation.json';
+import publication from './data/publication.json';
 
 const uri = 'http://localhost:9200';
 
@@ -16,6 +17,10 @@ const seeds = [{
 {
   name: 'organisation',
   json: organisation,
+},
+{
+  name: 'publication',
+  json: publication,
 },
 ];
 

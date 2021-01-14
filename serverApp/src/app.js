@@ -8,6 +8,7 @@ import affiliationRouter from './routes/affiliation.route';
 import userRouter from './routes/user.route';
 import countryRoute from './routes/country.router';
 import organisationRoute from './routes/organisation.route';
+import publicationRoute from './routes/publication.route';
 
 const app = express();
 
@@ -18,7 +19,7 @@ const app = express();
 app.use(bodyparser.json());
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({limit: '50mb', extended: true}));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'avatars')));
 app.use(express.json({ limit: '50mb' }));
@@ -35,5 +36,6 @@ app.use('/', affiliationRouter);
 app.use('/', userRouter);
 app.use('/', countryRoute);
 app.use('/', organisationRoute);
+app.use('/', publicationRoute);
 
 export default app;
