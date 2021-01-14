@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from '../middleware/cors';
 
 import {
   addCountry,
@@ -10,14 +9,6 @@ import {
 } from '../db/repository/country.repository';
 
 const router = express.Router();
-
-/**
- * allow every domain calling api
- * only in devloppement
- */
-if (process.env.NODE_ENV === 'development') {
-  cors(router);
-}
 
 /**
  * get All country by user id
