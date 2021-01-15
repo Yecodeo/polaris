@@ -1,5 +1,5 @@
 import express from 'express';
-import methods from '../controllers/country.controller';
+import methods from '../controllers/publication.controller';
 
 const router = express.Router();
 

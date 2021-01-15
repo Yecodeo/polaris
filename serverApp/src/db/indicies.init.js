@@ -47,7 +47,7 @@ export default function checkIndices(client) {
           }
           if (response) {
             console.info('🚩 statut : ', state);
-            console.info('🚀 Félicitation, la création des mapping est fini');
+            console.info('🚀 Félicitation, la création des index est fini');
           }
         });
       }

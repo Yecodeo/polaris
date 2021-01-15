@@ -39,7 +39,7 @@ export default function country(client) {
     if (err) {
       console.error(`${indexName} [error]: `, err, status);
     } else {
-      console.log(`${indexName} Successfully Created`, status, resp);
+      console.info(`🚀 L'index ${indexName} est crée`);
     }
   });
 }

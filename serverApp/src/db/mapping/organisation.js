@@ -19,7 +19,7 @@ export default function user(client) {
     if (err) {
       console.error(err, status);
     } else {
-      console.log(`${indexName} Successfully Created`, status, resp);
+      console.info(`🚀 L'index ${indexName} est crée`);
     }
   });
 }

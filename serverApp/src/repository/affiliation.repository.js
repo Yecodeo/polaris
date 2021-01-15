@@ -54,7 +54,6 @@ export function addAffiliation(body) {
  * @param {Object} body
  */
 export function updateAffiliation(id, body) {
-  console.log(id, body);
   return client.update({
     index,
     id,

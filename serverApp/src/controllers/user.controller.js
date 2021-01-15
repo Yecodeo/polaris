@@ -41,7 +41,6 @@ export default {
         },
       };
     }
-
     updateUser(req.params.id, req.body).then((response) => {
       res.status(200).json(ch.putHandler.success(response));
     }).catch((error) => {

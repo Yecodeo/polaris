@@ -54,7 +54,6 @@ export function addCountry(body) {
  * @param {Object} body
  */
 export function updateCountry(id, body) {
-  console.log(id, body);
   return client.update({
     index: 'country',
     id,

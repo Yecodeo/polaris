@@ -26,22 +26,25 @@ const seeds = [{
 
 seeds.map(async (seed) => {
   // delete documents
-  axios.post(`${uri}/${seed.name}/_delete_by_query`, {
+  await axios.post(`${uri}/${seed.name}/_delete_by_query`, {
     query: {
       match_all: {},
     },
   }).then((res) => {
-    console.log(res);
+    if (res) {
+      console.info(`🚩Nettoyage de l'index ${seed.name} achevé`);
+    }
   }).catch((error) => {
     console.error(error);
   });
 
   // seed data base
-  seed.json.forEach((el) => {
-    axios.post(`${uri}/${seed.name}/_doc`, el).then((response) => {
-      console.log(response);
+  await seed.json.forEach((el) => {
+    axios.post(`${uri}/${seed.name}/_doc`, el).then(() => {
+
     }).catch((error) => {
       console.error(error);
     });
   });
+  console.info(`🚀 Félicitation, la création du mapping ${seed.name} est fini`);
 });
