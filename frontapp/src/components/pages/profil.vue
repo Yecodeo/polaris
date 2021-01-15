@@ -67,6 +67,7 @@
 			this.user = this.$store.getters.getUser;
 		},
 		mounted() {
+			console.log(this.user.id);
 			this.updateUserApi = `${this.$store.getters.getApiUrl}/user/${this.user.id}`
 		},
 		methods: {
@@ -83,7 +84,7 @@
 						toaster.success();
 					}
 				}).catch((error) => {
-					console.log(error);
+					console.error(error);
 					toaster.fail();
 				});
 			},
@@ -104,7 +105,7 @@
 						toaster.success();
 					}
 				}).catch((error) => {
-					console.log(error);
+					console.error(error);
 					toaster.fail();
 				});
 			},

@@ -87,10 +87,8 @@
 		},
 		methods: {
 			getPublication: function () {
-				console.log(`${this.api_url}${this.input}`)
-				let self = this;
-				axios.get(`${this.api_url}${this.input}`).then(function (res) {
-					self.result = res.data.data;
+				axios.get(`${this.api_url}${this.input}`).then((res) => {
+					this.result = res.data.data;
 				}).catch(error => console.error(error));
 			}
 		}

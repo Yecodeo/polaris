@@ -72,7 +72,7 @@
 						toaster.success();
 					}
 				}).catch( (error) => {
-					console.log(error);
+					console.error(error);
 					toaster.fail();
 				});
 			},

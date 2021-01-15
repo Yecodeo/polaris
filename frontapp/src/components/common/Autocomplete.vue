@@ -6,6 +6,7 @@
 			expanded
 			@input="fetch" 
 			v-model="input"
+			placeholder="Rechercher un utilisateur"
 			v-on:input="updateValue()"
 		></b-input>
 		<div v-if="suggests && input.length >= 3" class="suggests">
@@ -14,7 +15,7 @@
 				:key="key" 
 				@click="OnSelect(suggest)">
 				<span v-for="(prop, k) in values" :key="k" :value="prop">
-					{{ suggest[prop] }}
+					{{ suggest[prop] | capitalize }}
 				</span>
 			</a>
 		</div>
