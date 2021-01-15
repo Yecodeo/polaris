@@ -1,4 +1,4 @@
-import elastic from '../elastic';
+import elastic from '../db/elastic';
 
 const client = elastic.getInstance();
 const index = 'organisation';
@@ -16,12 +16,4 @@ export function findAll() {
       },
     },
   });
-}
-
-export function hitsToResponse(array) {
-  const { body: { hits: { hits } } } = array;
-  return hits.map((hit) => ({
-    id: hit._id,
-    name: hit?._source?.name
-  }));
 }

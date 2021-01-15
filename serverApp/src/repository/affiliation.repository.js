@@ -1,20 +1,19 @@
-import elastic from '../elastic';
+import elastic from '../db/elastic';
 
 const client = elastic.getInstance();
-const index = 'user';
-
+const index = 'affiliation';
 /**
  * find a user by name
  * @param {user} user
  */
-export function findUser(keywork) {
+export function findInAffiliation(keywork) {
   return client.search({
     index,
     body: {
       query: {
         query_string: {
           query: `*${keywork}*`,
-          fields: ['firstname', 'lastname'],
+          fields: ['organisation', 'equipe'],
         },
       },
     },
@@ -22,16 +21,17 @@ export function findUser(keywork) {
 }
 
 /**
- * find a User by user id
+ * find a affiliation by user id
  * @param {user id} id
  */
-export function findUserById(id) {
+export function findByUser(id) {
   return client.search({
     index,
     body: {
+      sort: { _doc: { order: 'desc' } },
       query: {
         match: {
-          _id: id,
+          _user: id,
         },
       },
     },
@@ -39,10 +39,10 @@ export function findUserById(id) {
 }
 
 /**
- * Add new User
+ * Add new affiliation
  * @param {Json} body
  */
-export function addUser(body) {
+export function addAffiliation(body) {
   return client.index({
     index,
     body,
@@ -50,10 +50,11 @@ export function addUser(body) {
 }
 
 /**
- * update a User
+ * update a affiliation
  * @param {Object} body
  */
-export function updateUser(id, body) {
+export function updateAffiliation(id, body) {
+  console.log(id, body);
   return client.update({
     index,
     id,
@@ -64,23 +65,12 @@ export function updateUser(id, body) {
 }
 
 /**
- * delete a User
+ * delete a affiliation
  * @param {id} id
  */
-export function deleteUser(id) {
+export function deleteAffiliation(id) {
   return client.delete({
     index,
     id,
   });
-}
-
-export function hitsToResponse(object) {
-  const { body: { hits: { hits } } } = object;
-  return hits.map((hit) => ({
-    id: hit._id,
-    prefix: hit?._source?.prefix,
-    firstname: hit?._source?.firstname,
-    lastname: hit?._source?.lastname,
-    profil: hit?._source?.profil,
-  }));
 }

@@ -10,13 +10,14 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, '../avatars/'));
   },
   filename: (req, file, cb) => {
-    console.log(req.body);
     const ext = `.${file.originalname.split('.').pop()}`;
+    // performe a hash on date + filename and append extension to it
     const filename = crypto.createHash('md5').update(Date.now() + file.originalname).digest('hex') + ext;
     req.body.filehash = filename;
     cb(null, filename);
   },
 });
+
 /**
  * define here the accepted file type
  * @param {*} req

@@ -1,6 +1,8 @@
 import checkIndices from './indicies.init';
 
-const { Client } = require('@elastic/elasticsearch');
+const {
+  Client,
+} = require('@elastic/elasticsearch');
 
 /**
  * Connexion manager singleton pattern

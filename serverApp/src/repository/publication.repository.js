@@ -1,4 +1,4 @@
-import elastic from '../elastic';
+import elastic from '../db/elastic';
 
 const client = elastic.getInstance();
 
@@ -18,15 +18,4 @@ export function findInPublication(keywork) {
       },
     },
   });
-}
-
-export function hitsToResponse(object) {
-  const { body: { hits: { hits } } } = object;
-  return hits.map((hit) => ({
-    id: hit._id,
-    titre: hit._source.titre,
-    auteurs: hit._source.auteurs,
-    annee: hit._source.annee,
-    lang: hit._source.lang,
-  }));
 }

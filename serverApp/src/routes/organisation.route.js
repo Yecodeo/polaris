@@ -2,19 +2,19 @@ import express from 'express';
 
 import {
   findAll,
-  hitsToResponse,
-} from '../db/repository/organisation.repository';
+} from '../repository/organisation.repository';
+import hitsTransformer from '../helper/hitsTransformer';
 
 const router = express.Router();
 
 /**
  * get All User by user id
  */
-router.get('/organisation', (req, res) => {
+router.get('/', (req, res) => {
   findAll(req.query.q).then((response) => {
     res.status(200).json({
       state: 'ok',
-      data: hitsToResponse(response),
+      data: hitsTransformer(response),
     });
   }).catch((error) => {
     res.status(500).json({

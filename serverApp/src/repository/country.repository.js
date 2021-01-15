@@ -1,4 +1,4 @@
-import elastic from '../elastic';
+import elastic from '../db/elastic';
 
 const client = elastic.getInstance();
 
@@ -73,16 +73,4 @@ export function deleteCountry(id) {
     index: 'country',
     id,
   });
-}
-
-/**
- * Normalize response json
- * @param {*} hits
- */
-export function hitsToResponse(element) {
-  const { body: { hits: { hits } } } = element;
-  return hits.map((hit) => ({
-    name: hit?._source?.name,
-    code: hit?._source?.code,
-  }));
 }

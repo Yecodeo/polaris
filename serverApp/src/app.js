@@ -32,10 +32,10 @@ app.options('*', cors({
 /**
  * Calling routes middleware
  */
-app.use('/', affiliationRouter);
-app.use('/', userRouter);
-app.use('/', countryRoute);
-app.use('/', organisationRoute);
-app.use('/', publicationRoute);
+app.use('/affiliation', affiliationRouter);
+app.use('/user', userRouter);
+app.use('/country', countryRoute);
+app.use('/organisation', organisationRoute);
+app.use('/publication', publicationRoute);
 
 export default app;
