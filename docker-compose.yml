@@ -14,23 +14,23 @@ services:
     networks:
       - api
   # front end
-  # frontapp:
-  #   container_name: frontApp
-  #   build: 
-  #     context: ./frontApp
-  #     dockerfile: ./Dockerfile
-  #   restart: on-failure
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - api
-  #   depends_on:
-  #     - serverapp
-  #   links:
-  #     - serverapp
-  #   volumes:
-  #     - ./frontapp:/app
-  #     - /app/node_modules
+  frontapp:
+    container_name: frontApp
+    build: 
+      context: ./frontApp
+      dockerfile: ./Dockerfile
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    networks:
+      - api
+    depends_on:
+      - serverapp
+    links:
+      - serverapp
+    volumes:
+      - ./frontapp:/app
+      - /app/node_modules
   # node server 
   serverapp:
     build: 
